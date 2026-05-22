@@ -1,6 +1,6 @@
 ---
 layout: page
-title: PR history
+title: PRs
 permalink: /pr-history/
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Repository policy
+title: Repos
 permalink: /repos/
 ---
 

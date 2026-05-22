@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Lessons learned
+title: Lessons
 permalink: /lessons/
 ---
 

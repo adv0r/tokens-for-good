@@ -7,3 +7,13 @@ plugins:
   - jekyll-seo-tag
 url: https://adv0r.github.io
 baseurl: /tokens-for-good
+
+# Top-nav: order matters. dashboard/index.html is HTML and minima's
+# default header_pages lookup requires `title:` frontmatter, which the
+# dashboard intentionally doesn't have (it's a standalone SPA). The
+# Dashboard link is injected by the local _includes/header.html override.
+header_pages:
+  - pr-history.md
+  - lessons.md
+  - repos.md
+  - faq.md
