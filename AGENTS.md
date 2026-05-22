@@ -36,6 +36,29 @@ selection, and the full pipeline.
 | [`tb-triage`](./skills/tb-triage/SKILL.md) | doing a manual sweep of all open PRs |
 | [`tb-pr-followup`](./skills/tb-pr-followup/SKILL.md) | scheduled per-PR checkpoint (24h/48h/7d) ran due |
 | [`tb-self-improve`](./skills/tb-self-improve/SKILL.md) | end of session: read events, propose lesson lifecycle updates |
+| [`tb-respond-thanks`](./skills/tb-respond-thanks/SKILL.md) | maintainer thanked us / merged with positive sentiment — reply once, politely, no upsell |
+
+## Model self-identification (transparency requirement)
+
+Before opening any PR, you MUST know your model name. Different runtimes
+expose this differently:
+
+- **Cursor**: the model is named in the conversation context (system
+  prompt) and the user's selection in the model picker. If unsure, ASK
+  the user via `AskUserQuestion`.
+- **Claude Code**: check `$CLAUDE_MODEL` env var or fallback string.
+- **Codex CLI**: check `--model` flag or env.
+- **Other**: ask the user explicitly before proceeding.
+
+If model is unknown after all checks → **ABORT**. Do not open a PR
+without proper attribution. This is a hard rule.
+
+Store the model in `prs.model` for every PR. The dashboard breaks down
+merge rate by model — over time this becomes useful comparative data.
+
+For multi-model pipelines, set `prs.models_chain` to a JSON array of
+the chain (e.g. `["Claude Opus 4.7", "GPT-5.3-codex"]`) and use the
+chained-attribution preamble.
 
 ## State files
 
@@ -69,6 +92,13 @@ The CLI is [`scripts/tfg`](./scripts/tfg).
 6. Never PR a `tier: 4` contribution type cold (see
    `kb/contribution-types.yaml`).
 7. Probe cap per repo per round = 1 for untested/neutral, ≤2 for friendly.
+8. **Model is always known and recorded** before `gh pr create` (see
+   "Model self-identification" above). The model name appears in every
+   preamble and is stored in `prs.model`.
+9. **Explicit opt-out is honored within 24h** (auto-apology, auto-close,
+   permanent blacklist — org-wide if the maintainer is a BDFL). See
+   [`skills/tb-triage/SKILL.md`](./skills/tb-triage/SKILL.md) "Explicit
+   opt-out detection".
 
 ## Read next
 

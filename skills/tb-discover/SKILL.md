@@ -34,6 +34,30 @@ when the user explicitly asks "find me something to fix".
    - At least one merged PR from a non-bot in the last 30 days.
 5. **Yield ONE candidate** as `{repo, type, suggested_fix_path}`.
 
+## Source selection (NEW in v2.1) — explore/exploit balance
+
+The discovery skill should bias toward repos that have already shown they
+appreciate our work, while keeping a portion of effort going to new territory:
+
+- **70 % from `v_friendly_targets`** (exploit): repos with affinity score > 0
+- **30 % from `category=neutral|untested`** (explore): seek new friendly repos
+- **0 % from `category=blacklist`** (hard tripwire — `tb-vet-repo` enforces too)
+
+Reference implementation sketch:
+
+```python
+def get_candidates(n=10):
+    n_friendly = int(n * 0.7)
+    n_explore = n - n_friendly
+    return query_friendly(n_friendly) + query_neutral_or_untested(n_explore)
+```
+
+`query_friendly` reads `v_friendly_targets`. `query_neutral_or_untested`
+reads `kb/repos-policy.yaml` for `category in (neutral, untested)` and falls
+back to fresh `gh search` if the candidate pool is thin. The mix is a
+soft target; if `v_friendly_targets` is empty (cold start) the whole round
+runs in explore mode.
+
 ## Per-type discovery queries
 
 ### typo

@@ -54,9 +54,51 @@ Manual invocation only — the agent never auto-mutates `lessons.yaml`.
 - Updated `citation_count` in `state.db.lessons`.
 - One new event row.
 
+## Positive signal detection (NEW in v2.1)
+
+In addition to flagging silent closures as blacklist triggers, scan recent
+events for POSITIVE signals:
+
+- `pr_merged` events (basic positive signal, score +1)
+- Comments containing thank-you patterns (regex below) → score +1
+- Explicit invitations like "more PRs welcome", "feel free to send more" → score +2
+- GitHub reactions (👍❤️🎉) on our PRs → score +0.3 each
+- `pr_merged_within_24h` → score +0.5 bonus (very engaged maintainer)
+
+Thank-you regex (positive):
+
+```
+thank|thanks|appreciate|much appreciated|nice work|great work|exactly what|love this|grateful
+```
+
+Cautionary regex (false positive guard) — skip the match if the line contains:
+
+```
+no thanks|not thanks|less thanks|sarcasm
+```
+
+…or the line starts with `but `.
+
+For each positive signal:
+
+1. Upsert into `repo_type_affinity` (repo, contribution_type), adjust score.
+2. If `score >= 2 AND positive_count >= 2 AND last_negative_at IS NULL`:
+   propose promotion of repo `neutral → friendly` (write a row to the events
+   table as `kind='lesson_candidate'`; surface in `tfg stats`).
+3. If repo is already `friendly` AND `score >= 5 AND positive_count >= 3`:
+   propose promotion `friendly → highly-friendly`.
+4. Auto-add a `success_examples` link in `repos-policy.yaml` (PR URL +
+   contribution type). Operator commits.
+
+Negative signals (existing behavior, kept) decrement score and update
+`last_negative_at`. Score is monotonic per direction — we never "forgive"
+past silent-closes by merging on the next PR.
+
 ## Constraints
 
 - **Never auto-edits `kb/lessons.yaml`.** Always proposes, never commits.
+- **Never auto-edits `kb/repos-policy.yaml`.** Promotion proposals go to the
+  events table; operator commits.
 - **Never deletes a lesson.** Retired lessons stay in the YAML with
   `retired_at` + `retired_reason`.
 - **No promotion past evidence.** Don't move from `candidate` to

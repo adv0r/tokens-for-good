@@ -18,6 +18,24 @@ abort.
 
 ## Workflow
 
+0. **Model identification (MANDATORY — first check)**:
+   - Resolve the model name in this priority order:
+     1. `--model` CLI flag.
+     2. `TFG_MODEL` env var.
+     3. `user-state.json` `default_model` field.
+     4. Introspect runtime (Cursor exposes it in the system prompt; Claude
+        Code uses `$CLAUDE_MODEL`; Codex uses `--model`).
+     5. Ask the user via `AskUserQuestion` if all of the above fail.
+   - If none yields a value → **ABORT** with:
+     `Cannot open PR without model identification (transparency requirement).
+      Set TFG_MODEL env var or pass --model.`
+   - Substitute the resolved value into `{{model}}` everywhere in the
+     preamble and body templates.
+   - **Multi-model pipeline**: if discovery used model A and implementation
+     used model B, build a chain: `models_chain = ["A", "B"]`. Use the
+     alternate preamble that names the chain explicitly.
+   - Store `model` and (optional) `models_chain` on the `prs` row.
+
 1. **Tripwire (HARD-FAIL again)**:
    ```bash
    scripts/tfg vet <repo> || exit 2
@@ -58,8 +76,10 @@ abort.
 6. **Record**:
    - INSERT into `prs` (`url`, `repo`, `pr_number`, `contribution_type`,
      `title`, `opened_at`, `state='open'`, `helpful_signal=NULL`,
-     `next_checkpoint_at` = now + 24h).
-   - INSERT into `events` (`kind='pr_opened'`, payload includes `type`).
+     `next_checkpoint_at` = now + 24h, **`model`**, **`models_chain`**,
+     **`runtime`**).
+   - INSERT into `events` (`kind='pr_opened'`, payload includes `type` and
+     `model`).
 
 7. **Cleanup**: `rm -f /tmp/tfg-pr-body.md`.
 
