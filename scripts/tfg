@@ -728,6 +728,68 @@ def cmd_pr_history_render(args):
 
 # ---- subcommand: pages-build ----------------------------------------------
 
+def _by_org(conn, limit=10):
+    """Per-org PR counts + helpful-signal rate, top N by total."""
+    try:
+        rows = conn.execute(
+            """
+            SELECT
+              substr(repo, 1, instr(repo, '/') - 1) AS org,
+              COUNT(*) AS n,
+              SUM(CASE WHEN state = 'merged' THEN 1 ELSE 0 END) AS merged,
+              SUM(CASE WHEN state = 'closed' THEN 1 ELSE 0 END) AS closed,
+              SUM(CASE WHEN state IN ('open','draft') THEN 1 ELSE 0 END) AS open,
+              SUM(CASE WHEN state IN ('merged','closed') THEN 1 ELSE 0 END) AS decided,
+              SUM(CASE WHEN helpful_signal > 0 THEN 1 ELSE 0 END) AS helpful
+            FROM prs
+            WHERE repo LIKE '%/%'
+            GROUP BY org
+            ORDER BY n DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    out = []
+    for r in rows:
+        helpful_rate = (r["helpful"] / r["decided"]) if r["decided"] else None
+        out.append({
+            "org": r["org"],
+            "n": r["n"],
+            "merged": r["merged"] or 0,
+            "closed": r["closed"] or 0,
+            "open": r["open"] or 0,
+            "decided": r["decided"] or 0,
+            "helpful_rate": helpful_rate,
+        })
+    return out
+
+
+def _pr_timeline(conn):
+    """Per-day opened/merged counts since INITIATIVE_START for cumulative chart."""
+    try:
+        rows = conn.execute(
+            """
+            SELECT
+              date(opened_at) AS day,
+              COUNT(*) AS opened,
+              SUM(CASE WHEN state = 'merged' THEN 1 ELSE 0 END) AS merged
+            FROM prs
+            WHERE opened_at >= ?
+            GROUP BY day
+            ORDER BY day
+            """,
+            (INITIATIVE_START,),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    return [
+        {"day": r["day"], "opened": r["opened"] or 0, "merged": r["merged"] or 0}
+        for r in rows
+    ]
+
+
 def cmd_pages_build(args):
     """Regenerate docs/dashboard/data.json from state.db for GitHub Pages."""
     conn = db_connect()
@@ -736,6 +798,8 @@ def cmd_pages_build(args):
     fr = _top_friendly_repos(conn, limit=10)
     oo = _optouts_stats(conn)
     ep = _emerging_patterns(conn)
+    by_org = _by_org(conn, limit=10)
+    pr_timeline = _pr_timeline(conn)
 
     # By contribution type, stacked by state.
     try:
@@ -781,9 +845,21 @@ def cmd_pages_build(args):
             "merge_rate": rate,
         })
 
+    # commit_sha: short SHA of HEAD if we're in a git checkout (best-effort).
+    commit_sha = None
+    try:
+        commit_sha = subprocess.check_output(
+            ["git", "-C", str(REPO_ROOT), "rev-parse", "--short", "HEAD"],
+            stderr=subprocess.DEVNULL,
+        ).decode().strip() or None
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        commit_sha = None
+
     data = {
-        "schema": 1,
+        # schema 2 adds: by_org, pr_timeline, commit_sha. schema 1 fields preserved.
+        "schema": 2,
         "generated_at": now_iso(),
+        "commit_sha": commit_sha,
         "kpi": {
             "total_prs": d["total_prs"] or 0,
             "merged": d["merged"] or 0,
@@ -799,6 +875,8 @@ def cmd_pages_build(args):
             {"contribution_type": k, **v}
             for k, v in sorted(by_type.items(), key=lambda kv: -sum(kv[1].values()))
         ],
+        "by_org": by_org,
+        "pr_timeline": pr_timeline,
         "merge_rate_by_week": merge_rate_by_week,
         "top_friendly": fr,
         "emerging_patterns": ep,

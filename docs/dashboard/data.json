@@ -1,6 +1,7 @@
 {
-  "schema": 1,
-  "generated_at": "2026-05-22T06:46:53Z",
+  "schema": 2,
+  "generated_at": "2026-05-22T07:20:42Z",
+  "commit_sha": "bab67c0",
   "kpi": {
     "total_prs": 86,
     "merged": 24,
@@ -27,6 +28,125 @@
       "closed": 17,
       "open": 27,
       "draft": 18
+    }
+  ],
+  "by_org": [
+    {
+      "org": "eigensource",
+      "n": 17,
+      "merged": 17,
+      "closed": 0,
+      "open": 0,
+      "decided": 17,
+      "helpful_rate": 1.0
+    },
+    {
+      "org": "swarm-ai-safety",
+      "n": 7,
+      "merged": 1,
+      "closed": 0,
+      "open": 6,
+      "decided": 1,
+      "helpful_rate": 1.0
+    },
+    {
+      "org": "the-turing-way",
+      "n": 4,
+      "merged": 0,
+      "closed": 0,
+      "open": 4,
+      "decided": 0,
+      "helpful_rate": null
+    },
+    {
+      "org": "jupyterlab",
+      "n": 4,
+      "merged": 0,
+      "closed": 4,
+      "open": 0,
+      "decided": 4,
+      "helpful_rate": 0.0
+    },
+    {
+      "org": "jentic",
+      "n": 4,
+      "merged": 0,
+      "closed": 0,
+      "open": 4,
+      "decided": 0,
+      "helpful_rate": null
+    },
+    {
+      "org": "gohugoio",
+      "n": 4,
+      "merged": 3,
+      "closed": 0,
+      "open": 1,
+      "decided": 3,
+      "helpful_rate": 1.0
+    },
+    {
+      "org": "wagtail",
+      "n": 3,
+      "merged": 0,
+      "closed": 3,
+      "open": 0,
+      "decided": 3,
+      "helpful_rate": 0.0
+    },
+    {
+      "org": "pymc-devs",
+      "n": 3,
+      "merged": 0,
+      "closed": 1,
+      "open": 2,
+      "decided": 1,
+      "helpful_rate": 0.0
+    },
+    {
+      "org": "jupyter",
+      "n": 3,
+      "merged": 0,
+      "closed": 3,
+      "open": 0,
+      "decided": 3,
+      "helpful_rate": 0.0
+    },
+    {
+      "org": "decidim",
+      "n": 3,
+      "merged": 0,
+      "closed": 0,
+      "open": 3,
+      "decided": 0,
+      "helpful_rate": null
+    }
+  ],
+  "pr_timeline": [
+    {
+      "day": "2026-05-15",
+      "opened": 5,
+      "merged": 4
+    },
+    {
+      "day": "2026-05-18",
+      "opened": 6,
+      "merged": 3
+    },
+    {
+      "day": "2026-05-19",
+      "opened": 3,
+      "merged": 3
+    },
+    {
+      "day": "2026-05-20",
+      "opened": 52,
+      "merged": 12
+    },
+    {
+      "day": "2026-05-21",
+      "opened": 20,
+      "merged": 2
     }
   ],
   "merge_rate_by_week": [
