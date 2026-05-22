@@ -3,15 +3,14 @@
 Every PR opened by @adv0r since the Tokens for good initiative began (`2026-05-15`).
 Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.
 
-**Total PRs**: 87
+**Total PRs**: 69
 
-- Merged: 25
+- Merged: 7
 - Closed (no merge): 19
 - Open: 43 (18 draft)
 
 | PR | Repo | Title | State | Opened |
 |---|---|---|---|---|
-| [#40](https://github.com/eigensource/helion/pull/40) | `eigensource/helion` | [codex] Document local inference ownership economics | merged | 2026-05-22 |
 | [#318](https://github.com/flipperdevices/flipperone-docs/pull/318) | `flipperdevices/flipperone-docs` | docs(general/Controls): fix typos in Full Power Cycle row (complety, quicly) | draft | 2026-05-21 |
 | [#317](https://github.com/flipperdevices/flipperone-docs/pull/317) | `flipperdevices/flipperone-docs` | docs(testing/Network): fix English-spelling typos (Usally, simultanious, Bleutooth) | draft | 2026-05-21 |
 | [#14926](https://github.com/gohugoio/hugo/pull/14926) | `gohugoio/hugo` | transform: fix duplicate "to" in chain.go doc comment | draft | 2026-05-21 |
@@ -44,21 +43,16 @@ Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.
 | [#8317](https://github.com/typst/typst/pull/8317) | `typst/typst` | docs(tutorial): link to the web app for newcomers without a local install | closed | 2026-05-20 |
 | [#627](https://github.com/JabRef/user-documentation/pull/627) | `JabRef/user-documentation` | docs(editors): link Kile, add Kate to JabRef-compatible editors | merged | 2026-05-20 |
 | [#5340](https://github.com/lit/lit/pull/5340) | `lit/lit` | [context] Expose Options types for ContextConsumer and ContextProvider | open | 2026-05-20 |
-| [#39](https://github.com/eigensource/helion/pull/39) | `eigensource/helion` | [codex] Raise Ryzen Chat response budget | merged | 2026-05-20 |
 | [#16857](https://github.com/decidim/decidim/pull/16857) | `decidim/decidim` | Docs: fix two broken cross-references (system.adoc / machine_translations.adoc) | closed | 2026-05-20 |
 | [#16856](https://github.com/decidim/decidim/pull/16856) | `decidim/decidim` | Install docs: document AI/spam-detection rake tasks in Scheduled tasks (#14202) | closed | 2026-05-20 |
 | [#16855](https://github.com/decidim/decidim/pull/16855) | `decidim/decidim` | System docs: document how to delete an Organization through a script (#15825) | open | 2026-05-20 |
 | [#7922](https://github.com/jupyter/notebook/pull/7922) | `jupyter/notebook` | docs: troubleshoot "jupyter notebook opens VS Code instead of a browser" | closed | 2026-05-20 |
-| [#38](https://github.com/eigensource/helion/pull/38) | `eigensource/helion` | [codex] Harden Ryzen chat guards | merged | 2026-05-20 |
 | [#7921](https://github.com/jupyter/notebook/pull/7921) | `jupyter/notebook` | docs: document the .ipynb_checkpoints directory | closed | 2026-05-20 |
 | [#7920](https://github.com/jupyter/notebook/pull/7920) | `jupyter/notebook` | docs: add SSH tunnel guide for remote Jupyter Notebook | closed | 2026-05-20 |
-| [#37](https://github.com/eigensource/helion/pull/37) | `eigensource/helion` | Add Ryzen Chat dashboard tab | merged | 2026-05-20 |
 | [#18917](https://github.com/jupyterlab/jupyterlab/pull/18917) | `jupyterlab/jupyterlab` | docs(workspaces): clarify Workspace File Format and the State DB | closed | 2026-05-20 |
 | [#18916](https://github.com/jupyterlab/jupyterlab/pull/18916) | `jupyterlab/jupyterlab` | docs(settings): clarify what "preferred kernel" means | closed | 2026-05-20 |
 | [#18915](https://github.com/jupyterlab/jupyterlab/pull/18915) | `jupyterlab/jupyterlab` | docs(contributing): mention `--extensions-in-dev-mode` next to `--dev-mode` | closed | 2026-05-20 |
-| [#36](https://github.com/eigensource/helion/pull/36) | `eigensource/helion` | [codex] Document solar quote and site measurements | merged | 2026-05-20 |
 | [#18914](https://github.com/jupyterlab/jupyterlab/pull/18914) | `jupyterlab/jupyterlab` | docs: document `JPY_SESSION_NAME` for getting the notebook path | closed | 2026-05-20 |
-| [#35](https://github.com/eigensource/helion/pull/35) | `eigensource/helion` | [codex] Promote Qwen MTP hot profile | merged | 2026-05-20 |
 | [#8310](https://github.com/pymc-devs/pymc/pull/8310) | `pymc-devs/pymc` | docs(sample_smc): describe the `start` parameter format | open | 2026-05-20 |
 | [#8309](https://github.com/pymc-devs/pymc/pull/8309) | `pymc-devs/pymc` | docs(Deterministic): clarify it's optional and when to use it | closed | 2026-05-20 |
 | [#8308](https://github.com/pymc-devs/pymc/pull/8308) | `pymc-devs/pymc` | docs(sample): document the progressbar_theme parameter | open | 2026-05-20 |
@@ -82,19 +76,7 @@ Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.
 | [#4626](https://github.com/the-turing-way/the-turing-way/pull/4626) | `the-turing-way/the-turing-way` | docs(conferences): fix link rot to Gallantries handbook (#4068) | open | 2026-05-20 |
 | [#4625](https://github.com/the-turing-way/the-turing-way/pull/4625) | `the-turing-way/the-turing-way` | docs(testing): move chapter glossary into book-level Glossary (#4495) | open | 2026-05-20 |
 | [#4624](https://github.com/the-turing-way/the-turing-way/pull/4624) | `the-turing-way/the-turing-way` | fix(refs): update broken Hod15 link to active Stanford guide | open | 2026-05-20 |
-| [#34](https://github.com/eigensource/helion/pull/34) | `eigensource/helion` | Document Hermes cron guardrail fix | merged | 2026-05-20 |
-| [#33](https://github.com/eigensource/helion/pull/33) | `eigensource/helion` | [codex] Add rack and Terrado environment telemetry | merged | 2026-05-20 |
-| [#8](https://github.com/eigensource/Conductor-Playground/pull/8) | `eigensource/Conductor-Playground` | [codex] Add VP Product intake scaffold | merged | 2026-05-19 |
-| [#32](https://github.com/eigensource/helion/pull/32) | `eigensource/helion` | [codex] Track workstation quote and local AI feed | merged | 2026-05-19 |
-| [#31](https://github.com/eigensource/helion/pull/31) | `eigensource/helion` | [codex] Document workstation quote comparison | merged | 2026-05-19 |
-| [#30](https://github.com/eigensource/helion/pull/30) | `eigensource/helion` | [codex] Add Ryzen stats dashboard | merged | 2026-05-18 |
-| [#29](https://github.com/eigensource/helion/pull/29) | `eigensource/helion` | Update ComfyUI server-side model downloads | merged | 2026-05-18 |
-| [#28](https://github.com/eigensource/helion/pull/28) | `eigensource/helion` | Update Helion procurement tracker | merged | 2026-05-18 |
 | [#12317](https://github.com/Comfy-Org/ComfyUI_frontend/pull/12317) | `Comfy-Org/ComfyUI_frontend` | Use server downloads for missing models | open | 2026-05-18 |
 | [#13961](https://github.com/Comfy-Org/ComfyUI/pull/13961) | `Comfy-Org/ComfyUI` | Add server-side missing model downloads | open | 2026-05-18 |
 | [#12316](https://github.com/Comfy-Org/ComfyUI_frontend/pull/12316) | `Comfy-Org/ComfyUI_frontend` | Clarify missing model browser downloads | open | 2026-05-18 |
-| [#27](https://github.com/eigensource/helion/pull/27) | `eigensource/helion` | [codex] Fix DS4 dashboard hot-load allowlists | merged | 2026-05-15 |
-| [#7](https://github.com/eigensource/Conductor-Playground/pull/7) | `eigensource/Conductor-Playground` | [codex] Add FB AI/ML interview prep | merged | 2026-05-15 |
-| [#6](https://github.com/eigensource/Conductor-Playground/pull/6) | `eigensource/Conductor-Playground` | [codex] add AI fluency baseline and CCC evaluation | merged | 2026-05-15 |
-| [#26](https://github.com/eigensource/helion/pull/26) | `eigensource/helion` | [codex] Add local DS4 DeepSeek routing | merged | 2026-05-15 |
 | [#156](https://github.com/antirez/ds4/pull/156) | `antirez/ds4` | Fix ROCm build/runtime naming and MTP model mapping | open | 2026-05-15 |

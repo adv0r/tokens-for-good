@@ -1,45 +1,36 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-22T07:55:51Z",
-  "commit_sha": "5b56efa",
+  "generated_at": "2026-05-22T08:07:46Z",
+  "commit_sha": "d9db219",
   "kpi": {
-    "total_prs": 87,
-    "merged": 25,
+    "total_prs": 69,
+    "merged": 7,
     "closed_unmerged": 19,
     "still_open": 43,
-    "unique_repos": 43,
-    "helpful_signal_rate": 0.5681818181818182,
-    "helpful_count": 25,
-    "unhelpful_count": 17
+    "unique_repos": 41,
+    "helpful_signal_rate": 0.2692307692307692,
+    "helpful_count": 7,
+    "unhelpful_count": 19
   },
   "by_model": [
     {
       "model": "(unknown)",
-      "n": 87,
-      "merged": 25,
-      "n_decided": 44,
+      "n": 69,
+      "merged": 7,
+      "n_decided": 26,
       "thanked": 3
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 25,
+      "merged": 7,
       "closed": 19,
       "open": 25,
       "draft": 18
     }
   ],
   "by_org": [
-    {
-      "org": "eigensource",
-      "n": 18,
-      "merged": 18,
-      "closed": 0,
-      "open": 0,
-      "decided": 18,
-      "helpful_rate": 1.0
-    },
     {
       "org": "swarm-ai-safety",
       "n": 7,
@@ -120,54 +111,53 @@
       "open": 1,
       "decided": 2,
       "helpful_rate": 0.0
+    },
+    {
+      "org": "Comfy-Org",
+      "n": 3,
+      "merged": 0,
+      "closed": 0,
+      "open": 3,
+      "decided": 0,
+      "helpful_rate": null
     }
   ],
   "pr_timeline": [
     {
       "day": "2026-05-15",
-      "opened": 5,
-      "merged": 4
+      "opened": 1,
+      "merged": 0
     },
     {
       "day": "2026-05-18",
-      "opened": 6,
-      "merged": 3
-    },
-    {
-      "day": "2026-05-19",
       "opened": 3,
-      "merged": 3
+      "merged": 0
     },
     {
       "day": "2026-05-20",
-      "opened": 52,
-      "merged": 12
+      "opened": 45,
+      "merged": 5
     },
     {
       "day": "2026-05-21",
       "opened": 20,
       "merged": 2
-    },
-    {
-      "day": "2026-05-22",
-      "opened": 1,
-      "merged": 1
     }
   ],
   "merge_rate_by_week": [
     {
       "week": "2026-W19",
-      "merged": 4,
-      "decided": 4,
-      "total": 5,
-      "merge_rate": 1.0
+      "merged": 0,
+      "decided": 0,
+      "total": 1,
+      "merge_rate": null
     },
     {
       "week": "2026-W20",
-      "merged": 21,
-      "decided": 40,
-      "total": 82,
-      "merge_rate": 0.525
+      "merged": 7,
+      "decided": 26,
+      "total": 68,
+      "merge_rate": 0.2692307692307692
     }
   ],
   "top_friendly": [],
