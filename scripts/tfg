@@ -904,10 +904,23 @@ def _sync_kb_to_docs() -> list[tuple[Path, int]]:
 
 
 def _by_org(conn, limit=10):
-    """Per-org PR counts + helpful-signal rate, top N by total (excl. private)."""
+    """Per-org PR counts + helpful-rate, top N + aggregate of the rest.
+
+    Returns a dict with:
+      rows         - list of top-N orgs (same shape as before).
+      other_count  - PRs across orgs not in the top N.
+      other_orgs   - count of distinct orgs beyond the top N.
+      total_orgs   - total distinct orgs in scope (after filter).
+
+    Invariant: ``sum(r["n"] for r in rows) + other_count`` equals the total
+    PR count over the same filter (``repo LIKE '%/%' AND excluded_clause``).
+    cmd_pages_build verifies this against _dashboard_row_filtered before
+    serializing.
+    """
+    empty = {"rows": [], "other_count": 0, "other_orgs": 0, "total_orgs": 0}
     clause, params = _excluded_sql_clause()
     try:
-        rows = conn.execute(
+        all_rows = conn.execute(
             f"""
             SELECT
               substr(repo, 1, instr(repo, '/') - 1) AS org,
@@ -921,16 +934,18 @@ def _by_org(conn, limit=10):
             WHERE repo LIKE '%/%' AND {clause}
             GROUP BY org
             ORDER BY n DESC
-            LIMIT ?
             """,
-            [*params, limit],
+            params,
         ).fetchall()
     except sqlite3.OperationalError:
-        return []
-    out = []
-    for r in rows:
+        return empty
+
+    top = all_rows[:limit]
+    tail = all_rows[limit:]
+    rows = []
+    for r in top:
         helpful_rate = (r["helpful"] / r["decided"]) if r["decided"] else None
-        out.append({
+        rows.append({
             "org": r["org"],
             "n": r["n"],
             "merged": r["merged"] or 0,
@@ -939,7 +954,13 @@ def _by_org(conn, limit=10):
             "decided": r["decided"] or 0,
             "helpful_rate": helpful_rate,
         })
-    return out
+    other_count = sum((r["n"] or 0) for r in tail)
+    return {
+        "rows": rows,
+        "other_count": other_count,
+        "other_orgs": len(tail),
+        "total_orgs": len(all_rows),
+    }
 
 
 def _pr_timeline(conn):
@@ -975,7 +996,20 @@ def cmd_pages_build(args):
     fr = _top_friendly_repos(conn, limit=10)
     oo = _optouts_stats(conn)
     ep = _emerging_patterns(conn)
-    by_org = _by_org(conn, limit=10)
+    by_org_data = _by_org(conn, limit=10)
+    by_org = by_org_data["rows"]
+    by_org_other_count = by_org_data["other_count"]
+    by_org_other_orgs = by_org_data["other_orgs"]
+    by_org_total_orgs = by_org_data["total_orgs"]
+    # Invariant: top-10 + other == total PRs with valid owner/name.
+    _by_org_sum = sum(r["n"] for r in by_org) + by_org_other_count
+    if _by_org_sum and (d["total_prs"] or 0) and _by_org_sum != d["total_prs"]:
+        # Soft warn rather than crash the build; PRs without 'owner/name'
+        # repo form (shouldn't happen) would drift this. Surface it so we know.
+        print(
+            f"warning: by_org sum {_by_org_sum} != total_prs {d['total_prs']}",
+            file=sys.stderr,
+        )
     pr_timeline = _pr_timeline(conn)
 
     # By contribution type, stacked by state (excl. private owners).
@@ -1056,6 +1090,9 @@ def cmd_pages_build(args):
             for k, v in sorted(by_type.items(), key=lambda kv: -sum(kv[1].values()))
         ],
         "by_org": by_org,
+        "by_org_other_count": by_org_other_count,
+        "by_org_other_orgs": by_org_other_orgs,
+        "by_org_total_orgs": by_org_total_orgs,
         "pr_timeline": pr_timeline,
         "merge_rate_by_week": merge_rate_by_week,
         "top_friendly": fr,

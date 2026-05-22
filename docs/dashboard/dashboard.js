@@ -316,13 +316,57 @@
   function chartOrg(data) {
     const ctx = document.getElementById('chart-org');
     if (!ctx) return;
-    const rows = (data.by_org || []).slice(0, 10);
-    fillTable('chart-org-table', rows.map(r => [r.org, fmtNum(r.n), fmtPct(r.helpful_rate)]));
-    fillLinkList('chart-org-list', rows, (r) => ({
+    const baseRows = (data.by_org || []).slice(0, 10);
+    const otherCount = data.by_org_other_count || 0;
+    const otherOrgs = data.by_org_other_orgs || 0;
+    const totalOrgs = data.by_org_total_orgs || baseRows.length;
+
+    // Inject "X" into the card subtitle: "top 10 of X orgs · ...".
+    document.querySelectorAll('[data-stat="by_org_total_orgs"]').forEach((el) => {
+      el.textContent = fmtNum(totalOrgs);
+    });
+
+    fillTable(
+      'chart-org-table',
+      baseRows.map(r => [r.org, fmtNum(r.n), fmtPct(r.helpful_rate)])
+        .concat(otherCount > 0
+          ? [[`Other (${otherOrgs} orgs)`, fmtNum(otherCount), 'n/a']]
+          : [])
+    );
+    fillLinkList('chart-org-list', baseRows, (r) => ({
       href: 'https://github.com/' + encodeURIComponent(r.org),
       label: r.org,
       meta: `${fmtNum(r.n)} PRs · ${fmtPct(r.helpful_rate)}`,
     }));
+    if (otherCount > 0) {
+      const list = document.getElementById('chart-org-list');
+      if (list) {
+        const li = document.createElement('li');
+        li.className = 'link-list-other';
+        const lbl = document.createElement('span');
+        lbl.textContent = 'Other';
+        li.appendChild(lbl);
+        const meta = document.createElement('span');
+        meta.className = 'meta';
+        meta.textContent = ` · ${fmtNum(otherCount)} PRs · ${fmtNum(otherOrgs)} orgs`;
+        li.appendChild(meta);
+        list.appendChild(li);
+      }
+    }
+
+    // Augment rows with an "Other" aggregate bar (non-clickable, muted color).
+    const rows = baseRows.slice();
+    if (otherCount > 0) {
+      rows.push({
+        org: `Other (${otherOrgs} orgs)`,
+        n: otherCount,
+        merged: 0, closed: 0, open: 0, decided: 0,
+        helpful_rate: null,
+        _other: true,
+        _otherOrgs: otherOrgs,
+      });
+    }
+
     if (rows.length === 0) { showEmpty(ctx, 'No org breakdown yet.'); return; }
 
     const p = palette();
@@ -333,7 +377,7 @@
         datasets: [{
           label: 'PRs',
           data: rows.map(r => r.n),
-          backgroundColor: rows.map(r => helpfulRateColor(r.helpful_rate, p)),
+          backgroundColor: rows.map(r => r._other ? p.dim : helpfulRateColor(r.helpful_rate, p)),
           borderRadius: 4,
           borderSkipped: false,
           barPercentage: 0.85,
@@ -345,19 +389,20 @@
         indexAxis: 'y',
         onClick: (evt, elements) => {
           if (!elements.length) return;
-          const idx = elements[0].index;
-          const org = rows[idx] && rows[idx].org;
-          if (org) {
-            window.open(
-              'https://github.com/' + encodeURIComponent(org),
-              '_blank',
-              'noopener,noreferrer'
-            );
-          }
+          const r = rows[elements[0].index];
+          if (!r || r._other) return;
+          window.open(
+            'https://github.com/' + encodeURIComponent(r.org),
+            '_blank',
+            'noopener,noreferrer'
+          );
         },
         onHover: (evt, elements) => {
           const t = evt && evt.native && evt.native.target;
-          if (t && t.style) t.style.cursor = elements.length ? 'pointer' : 'default';
+          if (!t || !t.style) return;
+          if (!elements.length) { t.style.cursor = 'default'; return; }
+          const r = rows[elements[0].index];
+          t.style.cursor = r && r._other ? 'default' : 'pointer';
         },
         plugins: {
           ...commonChartOpts(p).plugins,
@@ -367,6 +412,9 @@
             callbacks: {
               label: (ctx) => {
                 const r = rows[ctx.dataIndex];
+                if (r._other) {
+                  return [` ${fmtNum(r.n)} PRs across ${fmtNum(r._otherOrgs)} orgs`, ' (not shown individually)'];
+                }
                 const rate = fmtPct(r.helpful_rate);
                 return [` PRs: ${fmtNum(r.n)}`, ` Helpful rate: ${rate}`, ` Merged: ${fmtNum(r.merged)} · Open: ${fmtNum(r.open)}`, ' (click to open on GitHub)'];
               },
@@ -388,7 +436,7 @@
     });
 
     registerChart('org', chart, (c, np) => {
-      c.data.datasets[0].backgroundColor = rows.map(r => helpfulRateColor(r.helpful_rate, np));
+      c.data.datasets[0].backgroundColor = rows.map(r => r._other ? np.dim : helpfulRateColor(r.helpful_rate, np));
       c.options.scales.x.ticks.color = np.mut;
       c.options.scales.x.grid.color = np.grid;
       c.options.scales.y.ticks.color = np.text;

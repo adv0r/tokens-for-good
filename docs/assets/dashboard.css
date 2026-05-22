@@ -542,6 +542,18 @@ button {
   white-space: normal;
 }
 
+/* Aggregate "Other" row: explicitly not a link, visually muted. */
+.link-list-other {
+  color: var(--text-mut);
+  font-size: 0.825rem;
+  border-top: 1px dashed var(--border);
+  border-bottom: 0 !important;
+  padding-top: 0.4rem;
+  margin-top: 0.2rem;
+  cursor: default;
+}
+.link-list-other .meta { color: var(--text-mut); }
+
 .empty {
   color: var(--text-mut);
   font-size: 0.875rem;

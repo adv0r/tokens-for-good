@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-22T08:19:51Z",
-  "commit_sha": "b7a1771",
+  "generated_at": "2026-05-22T09:36:20Z",
+  "commit_sha": "2b46b63",
   "kpi": {
     "total_prs": 69,
     "merged": 7,
@@ -122,6 +122,9 @@
       "helpful_rate": null
     }
   ],
+  "by_org_other_count": 31,
+  "by_org_other_orgs": 28,
+  "by_org_total_orgs": 38,
   "pr_timeline": [
     {
       "day": "2026-05-15",
