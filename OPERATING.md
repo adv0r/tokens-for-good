@@ -73,6 +73,22 @@ scripts/tfg pages-build           # rebuilds docs/dashboard/data.json
 
 Don't edit the rendered `.md` files by hand — they'll be overwritten.
 
+### Auto-synced Pages subpages
+
+`tfg pages-build` also mirrors three `kb/*.md` files into Pages so the
+docs subpages serve real content (not stubs):
+
+| Source (edit this)     | Target (auto-generated)  |
+|---|---|
+| `kb/lessons.md`        | `docs/lessons.md`        |
+| `kb/pr-history.md`     | `docs/pr-history.md`     |
+| `kb/repos-policy.md`   | `docs/repos.md`          |
+
+The Jekyll frontmatter (layout/title/permalink) in each `docs/` target is
+preserved verbatim; only the body is replaced. The targets are tracked
+in git (Pages needs them to build), but you should never hand-edit them
+— change the kb source and re-run `tfg pages-build`.
+
 ### Why the dashboard is built locally (Phase 1)
 
 The interactive dashboard under `docs/dashboard/` reads

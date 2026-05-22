@@ -23,6 +23,9 @@ Subcommands:
   policy render     regenerate kb/repos-policy.md from kb/repos-policy.yaml
   pr-history render regenerate kb/pr-history.md from state.db
   pages-build       regenerate docs/dashboard/data.json from state.db
+                    + sync kb/{lessons,pr-history,repos-policy}.md to
+                    docs/{lessons,pr-history,repos}.md (Jekyll frontmatter
+                    preserved, attribution line prepended).
   version           print version
 """
 from __future__ import annotations
@@ -728,6 +731,73 @@ def cmd_pr_history_render(args):
 
 # ---- subcommand: pages-build ----------------------------------------------
 
+# (kb_source, docs_target) pairs synced into Pages on every `tfg pages-build`.
+# The docs targets keep their existing frontmatter; the body is replaced with
+# the kb source body and prefixed with a one-line attribution.
+PAGES_KB_SYNC = [
+    ("kb/lessons.md",      "docs/lessons.md"),
+    ("kb/pr-history.md",   "docs/pr-history.md"),
+    ("kb/repos-policy.md", "docs/repos.md"),
+]
+
+
+def _split_frontmatter(text: str) -> tuple[str, str]:
+    """Return (frontmatter_block_with_trailing_newline, body).
+
+    If `text` begins with a YAML frontmatter (`---\n…\n---\n`), strip and
+    return it as the first element; otherwise the first element is empty.
+    """
+    if not text.startswith("---\n"):
+        return "", text
+    end = text.find("\n---\n", 4)
+    if end == -1:
+        return "", text
+    fm = text[: end + len("\n---\n")]
+    body = text[end + len("\n---\n") :]
+    return fm, body
+
+
+def _sync_kb_to_docs() -> list[tuple[Path, int]]:
+    """Sync each PAGES_KB_SYNC pair. Returns [(out_path, bytes_written), ...].
+
+    Preserves whatever Jekyll frontmatter the docs/ target currently has.
+    Prepends a one-line auto-sync attribution to the body. Skips any
+    frontmatter the kb source itself may carry (currently none do).
+    Writes are skipped when content is unchanged (mtime stays steady).
+    """
+    written: list[tuple[Path, int]] = []
+    for src_rel, dst_rel in PAGES_KB_SYNC:
+        src = REPO_ROOT / src_rel
+        dst = REPO_ROOT / dst_rel
+        if not src.exists():
+            sys.exit(f"error: pages-build sync source missing: {src}")
+        if not dst.exists():
+            sys.exit(
+                f"error: pages-build sync target missing: {dst}\n"
+                "  Expected a stub with Jekyll frontmatter to preserve."
+            )
+
+        dst_fm, _ = _split_frontmatter(dst.read_text(encoding="utf-8"))
+        if not dst_fm:
+            sys.exit(
+                f"error: {dst} has no Jekyll frontmatter — refusing to sync. "
+                "Add a `---`-fenced frontmatter block (layout/title/permalink) first."
+            )
+
+        _, src_body = _split_frontmatter(src.read_text(encoding="utf-8"))
+        attribution = (
+            f"_Auto-synced from `{src_rel}` by `tfg pages-build`. "
+            "Edit the source, not this copy._\n\n"
+        )
+        # Exactly one blank line between frontmatter and attribution.
+        new_text = dst_fm + "\n" + attribution + src_body.lstrip("\n")
+        prev = dst.read_text(encoding="utf-8")
+        if prev != new_text:
+            dst.write_text(new_text, encoding="utf-8")
+        written.append((dst, len(new_text.encode("utf-8"))))
+    return written
+
+
 def _by_org(conn, limit=10):
     """Per-org PR counts + helpful-signal rate, top N by total."""
     try:
@@ -890,6 +960,12 @@ def cmd_pages_build(args):
     out.write_text(json.dumps(data, indent=2, default=str) + "\n", encoding="utf-8")
     conn.close()
     print(f"wrote {out}")
+
+    # Mirror rendered kb/*.md into Pages so the docs/ subpages serve real
+    # content instead of stubs. Frontmatter is preserved verbatim.
+    for dst, nbytes in _sync_kb_to_docs():
+        rel = dst.relative_to(REPO_ROOT)
+        print(f"synced {rel} ({nbytes} B)")
 
 
 # ---- argparse wiring ------------------------------------------------------
