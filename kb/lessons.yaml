@@ -1,11 +1,11 @@
-# Token for good — lessons (machine-readable, lifecycle-aware)
+# Tokens for good — lessons (machine-readable, lifecycle-aware)
 # Status legend:
 #   candidate  — proposed but unconfirmed (1 data point)
 #   active     — being applied as a guideline
 #   confirmed  — high-confidence rule with N >= 4 confirmations
 #   retired    — superseded or contradicted by later evidence
 #
-# Maintainer ids are anonymized (see ~/.local/share/token-for-good/maintainer-map.json).
+# Maintainer ids are anonymized (see ~/.local/share/tokens-for-good/maintainer-map.json).
 
 version: 1
 

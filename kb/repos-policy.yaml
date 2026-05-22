@@ -1,7 +1,7 @@
-# Token for good — repository policy (machine-readable)
+# Tokens for good — repository policy (machine-readable)
 # Maintainer handles are anonymized as maintainer-A, maintainer-B, etc.
 # The mapping anonymized-id → real handle lives at
-#   ~/.local/share/token-for-good/maintainer-map.json
+#   ~/.local/share/tokens-for-good/maintainer-map.json
 # which is NEVER committed.
 #
 # All quotes are verbatim from public PR threads.

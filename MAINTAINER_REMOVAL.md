@@ -16,7 +16,7 @@ Body can be one sentence. We'll add the repo or org to the permanent
 blacklist within 24 hours, and verify on next session that no further PRs
 are opened against it.
 
-[**→ Open an opt-out issue**](https://github.com/adv0r/token-for-good/issues/new?title=OPT-OUT%3A%20%3Cyour-org-or-repo%3E&body=Please%20stop%20sending%20AI-authored%20PRs%20to%20this%20repo%2Forg.)
+[**→ Open an opt-out issue**](https://github.com/adv0r/tokens-for-good/issues/new?title=OPT-OUT%3A%20%3Cyour-org-or-repo%3E&body=Please%20stop%20sending%20AI-authored%20PRs%20to%20this%20repo%2Forg.)
 
 ## 2. Email
 

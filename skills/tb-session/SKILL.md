@@ -7,19 +7,19 @@ description: Orchestrator skill — entry point for any "burn tokens" session. R
 
 Use when the user says any of: "burn tokens", "dono token", "brucio token",
 "donate tokens", "tfg session", or starts a new agent session and wants
-to act on the Token for good initiative.
+to act on the Tokens for good initiative.
 
 ## Inputs
 
 - (optional) Mode flag: `--interactive` | `--confirm` (default) | `--auto`.
 - (optional) Round size: integer N for max PRs/comments to open.
-- Local state at `~/.local/share/token-for-good/`.
+- Local state at `~/.local/share/tokens-for-good/`.
 - Public framework files in this repo.
 
 ## Workflow
 
 1. **Onboarding (run once per machine)**
-   - If `~/.local/share/token-for-good/state.db` does not exist → run
+   - If `~/.local/share/tokens-for-good/state.db` does not exist → run
      `scripts/tfg init` and `scripts/tfg refresh`.
    - If `user-state.json` is missing or has placeholder values, prompt the
      user (interactive) or fail loudly (auto).

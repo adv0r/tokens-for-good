@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""tfg — Token for good CLI.
+"""tfg — Tokens for good CLI.
 
-The single user-facing entry point for the Token for good initiative.
+The single user-facing entry point for the Tokens for good initiative.
 Reads/writes:
   - public framework files (this repo)
-  - local state in ~/.local/share/token-for-good/
+  - local state in ~/.local/share/tokens-for-good/
 
 Subcommands:
   init              create local state dir + init state.db from schema
@@ -40,7 +40,7 @@ from pathlib import Path
 VERSION = "0.1.0"
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-LOCAL_DIR = Path.home() / ".local" / "share" / "token-for-good"
+LOCAL_DIR = Path.home() / ".local" / "share" / "tokens-for-good"
 DB_PATH = LOCAL_DIR / "state.db"
 USER_STATE_PATH = LOCAL_DIR / "user-state.json"
 SCHEMA_PATH = REPO_ROOT / "schema" / "state.sql"
@@ -268,7 +268,7 @@ def cmd_stats(args):
     rate = d["helpful_signal_rate"]
     rate_display = "n/a" if rate is None else f"{rate * 100:.0f}%"
 
-    print(f"Token for good — dashboard ({now_iso()})")
+    print(f"Tokens for good — dashboard ({now_iso()})")
     print(f"  Helpful-signal rate (primary): {rate_display}")
     print(f"  Total PRs:        {d['total_prs']}")
     print(f"  Merged:           {d['merged']}")
@@ -541,7 +541,7 @@ def cmd_pr_history_render(args):
     lines = [
         "# PR history",
         "",
-        f"Every PR opened by @adv0r since the Token for good initiative began (`{INITIATIVE_START}`).",
+        f"Every PR opened by @adv0r since the Tokens for good initiative began (`{INITIATIVE_START}`).",
         "Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.",
         "",
         f"**Total PRs**: {len(rows)}",
@@ -577,7 +577,7 @@ def cmd_pr_history_render(args):
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="tfg",
-        description="Token for good CLI — manage state, vet repos, refresh stats.",
+        description="Tokens for good CLI — manage state, vet repos, refresh stats.",
     )
     parser.add_argument("--version", action="version", version=f"tfg {VERSION}")
     sub = parser.add_subparsers(dest="cmd")

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Token for good knowledge base. Format loosely
+All notable changes to the Tokens for good knowledge base. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) — but
 structured around what the agent learns, not just code changes.
 
@@ -9,12 +9,12 @@ structured around what the agent learns, not just code changes.
 Architecture v2 (single coherent commit). Highlights:
 
 - **Public/private split.** All mutable state lives at
-  `~/.local/share/token-for-good/state.db` (SQLite). The schema is at
+  `~/.local/share/tokens-for-good/state.db` (SQLite). The schema is at
   [`schema/state.sql`](./schema/state.sql); the database itself is never
   committed.
 - **Anonymized maintainer ids.** Public files reference `maintainer-A`,
   `maintainer-B`, … The id ↔ real-handle mapping lives only in
-  `~/.local/share/token-for-good/maintainer-map.json`.
+  `~/.local/share/tokens-for-good/maintainer-map.json`.
 - **Verbatim quotes preserved** from public PR threads.
 - **Single `tfg` CLI** entry point at [`scripts/tfg`](./scripts/tfg) with
   subcommands: `init`, `refresh`, `stats`, `vet`, `triage`, `followup`,
@@ -25,7 +25,7 @@ Architecture v2 (single coherent commit). Highlights:
   `kb/repos-policy.yaml`, `kb/lessons.yaml`. Markdown counterparts are
   rendered by `tfg`.
 - **5-line humble preamble** (`templates/humble-preamble.md`) — first
-  words are the `[Token for good](...)` hyperlink.
+  words are the `[Tokens for good](...)` hyperlink.
 - **README live dashboard** with helpful-signal rate as the primary
   metric.
 - **Initial cohort**: 86 PRs since 2026-05-15, 43 unique repos, 24

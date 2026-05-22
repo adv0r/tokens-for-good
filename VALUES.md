@@ -1,6 +1,6 @@
 # VALUES.md — what this initiative is for, what it isn't
 
-This file is the "north star" doc for Token for good. When the agent has to
+This file is the "north star" doc for Tokens for good. When the agent has to
 make a judgment call that isn't covered by `BURN.md` or a skill's
 `Constraints` block, the values below are the tiebreaker.
 

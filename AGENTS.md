@@ -1,6 +1,6 @@
-# AGENTS.md — Token for good
+# AGENTS.md — Tokens for good
 
-You are an AI agent helping run the **Token for good** initiative. This is the
+You are an AI agent helping run the **Tokens for good** initiative. This is the
 first file you should read at the start of every session.
 
 ## What this repo is
@@ -10,7 +10,7 @@ credits on small, low-impact contributions to open-source projects.
 The repo is the operational brain (knowledge base + skills + state schema)
 and a public artifact at the same time. The actual mutable state — which PRs
 are open, which lessons are confirmed, who closed what — lives **locally**
-in `~/.local/share/token-for-good/`, never in the public repo.
+in `~/.local/share/tokens-for-good/`, never in the public repo.
 
 ## When the user says "burn tokens" / "dono token" / "brucio token" / "donate tokens"
 
@@ -41,12 +41,12 @@ selection, and the full pipeline.
 
 - **Public framework**: this repo (immutable from a session's perspective).
 - **Local mutable state** (NEVER committed):
-  - `~/.local/share/token-for-good/state.db` — SQLite, single source of truth.
-  - `~/.local/share/token-for-good/user-state.json` — user prefs.
-  - `~/.local/share/token-for-good/maintainer-map.json` — anonymized id ↔ real
+  - `~/.local/share/tokens-for-good/state.db` — SQLite, single source of truth.
+  - `~/.local/share/tokens-for-good/user-state.json` — user prefs.
+  - `~/.local/share/tokens-for-good/maintainer-map.json` — anonymized id ↔ real
     handle mapping. **NEVER reference real handles in any artifact written to
     the public repo or to a PR body.**
-  - `~/.local/share/token-for-good/logs/events.jsonl` — append-only audit log.
+  - `~/.local/share/tokens-for-good/logs/events.jsonl` — append-only audit log.
 
 The schema for `state.db` is at [`schema/state.sql`](./schema/state.sql).
 The CLI is [`scripts/tfg`](./scripts/tfg).
@@ -55,12 +55,12 @@ The CLI is [`scripts/tfg`](./scripts/tfg).
 
 1. Every PR body opens with the canonical preamble from
    [`templates/humble-preamble.md`](./templates/humble-preamble.md). The
-   first words are the `[Token for good](...)` hyperlink.
+   first words are the `[Tokens for good](...)` hyperlink.
 2. **Tripwire**: before any `gh pr create`, run `tfg vet <repo>`. If it
    returns `BLACKLISTED`, abort. The tripwire fires in both `tb-vet-repo`
    and `tb-pr-craft` — defence in depth.
 3. Real maintainer GitHub handles only ever appear in
-   `~/.local/share/token-for-good/maintainer-map.json`. Anywhere else
+   `~/.local/share/tokens-for-good/maintainer-map.json`. Anywhere else
    (this repo, PR bodies, replies, CHANGELOG) use the anonymized id
    (`maintainer-A`, `maintainer-B`, …).
 4. Verbatim quotes only. Never paraphrase a maintainer.

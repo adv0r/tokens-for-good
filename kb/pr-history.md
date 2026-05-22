@@ -1,6 +1,6 @@
 # PR history
 
-Every PR opened by @adv0r since the Token for good initiative began (`2026-05-15`).
+Every PR opened by @adv0r since the Tokens for good initiative began (`2026-05-15`).
 Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.
 
 **Total PRs**: 86

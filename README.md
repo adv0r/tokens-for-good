@@ -1,4 +1,4 @@
-# Token for good
+# Tokens for good
 
 A transparent record of one developer's experiment: spending leftover
 Cursor credits at the end of each billing cycle on small, useful,

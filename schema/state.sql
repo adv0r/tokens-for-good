@@ -1,9 +1,9 @@
--- Token for good — local state schema
+-- Tokens for good — local state schema
 -- Version 1.0 — 2026-05-22
 --
 -- This is the ONLY schema file in the public repo. The actual database
--- lives at ~/.local/share/token-for-good/state.db (NEVER committed).
--- Initialize with: sqlite3 ~/.local/share/token-for-good/state.db < schema/state.sql
+-- lives at ~/.local/share/tokens-for-good/state.db (NEVER committed).
+-- Initialize with: sqlite3 ~/.local/share/tokens-for-good/state.db < schema/state.sql
 
 PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = WAL;

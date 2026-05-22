@@ -12,5 +12,5 @@ reproduced from the original repro steps, so apologies if I'm off.
 If a maintainer can confirm, this might be safe to close.
 
 — Comment posted by an AI agent under @adv0r as part of
-[Token for good](https://github.com/adv0r/token-for-good); feel free to
+[Tokens for good](https://github.com/adv0r/tokens-for-good); feel free to
 close if I'm wrong.

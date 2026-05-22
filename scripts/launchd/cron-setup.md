@@ -18,7 +18,7 @@ launchd (preferred on macOS) or cron (everywhere).
 4. Verify:
    ```
    launchctl list com.adv0r.tfg.daily
-   tail ~/.local/share/token-for-good/logs/tfg-daily.out.log
+   tail ~/.local/share/tokens-for-good/logs/tfg-daily.out.log
    ```
 5. Disable later:
    ```
@@ -33,7 +33,7 @@ with probe cap honoured; everything else just observes and logs.
 
 ```cron
 # Daily at 09:00 — same effect as the launchd plist above.
-0 9 * * * /home/$USER/Desktop/token-for-good/scripts/tfg session --auto >> /home/$USER/.local/share/token-for-good/logs/tfg-daily.out.log 2>> /home/$USER/.local/share/token-for-good/logs/tfg-daily.err.log
+0 9 * * * /home/$USER/Desktop/tokens-for-good/scripts/tfg session --auto >> /home/$USER/.local/share/tokens-for-good/logs/tfg-daily.out.log 2>> /home/$USER/.local/share/tokens-for-good/logs/tfg-daily.err.log
 ```
 
 Open `crontab -e`, paste, save.
@@ -55,4 +55,4 @@ In practice we keep `--auto` to refresh-only by default, and run
 
 If you'd rather schedule from GitHub Actions or some other CI, that's
 fine — just call `tfg session --auto` from the same machine and make sure
-`~/.local/share/token-for-good/` is mounted persistently.
+`~/.local/share/tokens-for-good/` is mounted persistently.

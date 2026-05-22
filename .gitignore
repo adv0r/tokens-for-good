@@ -1,4 +1,4 @@
-# Token for good — public repo .gitignore
+# Tokens for good — public repo .gitignore
 # Anything that holds runtime state, secrets, or private mappings stays LOCAL.
 
 # Local state — never commit

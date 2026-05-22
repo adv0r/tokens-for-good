@@ -1,4 +1,4 @@
-# OPERATING.md — taking over Token for good
+# OPERATING.md — taking over Tokens for good
 
 If you're a human operator (or an agent acting on behalf of one) preparing to
 run this initiative for the first time on a new machine — start here.
@@ -21,18 +21,18 @@ run this initiative for the first time on a new machine — start here.
 
 1. Clone the repo somewhere stable:
    ```
-   git clone https://github.com/adv0r/token-for-good ~/Desktop/token-for-good
-   cd ~/Desktop/token-for-good
+   git clone https://github.com/adv0r/tokens-for-good ~/Desktop/tokens-for-good
+   cd ~/Desktop/tokens-for-good
    ```
 2. Initialize local state:
    ```
    scripts/tfg init
    ```
-   This creates `~/.local/share/token-for-good/state.db` from
+   This creates `~/.local/share/tokens-for-good/state.db` from
    `schema/state.sql`, plus a stub `user-state.json`.
 3. Edit your handle and language preferences:
    ```
-   $EDITOR ~/.local/share/token-for-good/user-state.json
+   $EDITOR ~/.local/share/tokens-for-good/user-state.json
    ```
    At minimum, set `github_handle` to your own handle.
 4. Pull the current PR cohort:
@@ -46,7 +46,7 @@ run this initiative for the first time on a new machine — start here.
 ## First session walkthrough
 
 ```
-cd ~/Desktop/token-for-good
+cd ~/Desktop/tokens-for-good
 scripts/tfg session            # default: confirmed mode (asks before each PR)
 ```
 
@@ -75,7 +75,7 @@ Don't edit the rendered `.md` files by hand — they'll be overwritten.
 ## Where the state lives + how to back it up
 
 ```
-~/.local/share/token-for-good/
+~/.local/share/tokens-for-good/
 ├── state.db              # SQLite, single source of truth for mutable state
 ├── state.db-wal          # write-ahead log (transient, do not back up alone)
 ├── state.db-shm          # shared memory (transient)
@@ -84,7 +84,7 @@ Don't edit the rendered `.md` files by hand — they'll be overwritten.
 └── logs/                 # event log (append-only)
 ```
 
-To back up: `cp -R ~/.local/share/token-for-good ~/Backups/token-for-good-$(date +%F)`.
+To back up: `cp -R ~/.local/share/tokens-for-good ~/Backups/tokens-for-good-$(date +%F)`.
 SQLite checkpoints WAL on close — best to back up after a clean process exit.
 
 ## Updating your handle / preferences
@@ -95,7 +95,7 @@ Either edit `user-state.json` directly, or in v0.2 use the planned
 ## Adding a maintainer to the anonymized map
 
 When a new maintainer appears in `kb/repos-policy.yaml` or
-`kb/lessons.yaml`, edit `~/.local/share/token-for-good/maintainer-map.json`
+`kb/lessons.yaml`, edit `~/.local/share/tokens-for-good/maintainer-map.json`
 to add the anonymized-id → real-handle row. The public files stay in sync
 because they only ever reference the anonymized id.
 
@@ -112,7 +112,7 @@ If you want to gracefully wind down the initiative:
 4. Add a banner to `README.md`: "This initiative ended on YYYY-MM-DD. The
    knowledge base is preserved for posterity."
 5. Push the final commit and archive the repo (`gh repo archive
-   adv0r/token-for-good`).
+   adv0r/tokens-for-good`).
 
 ## Scheduled runs (optional)
 

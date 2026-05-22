@@ -2,7 +2,7 @@
 
 Per-maintainer notes on response style, what they merge, what they reject.
 Maintainer handles are anonymized as `maintainer-X`. The mapping
-anonymized-id → real handle lives in `~/.local/share/token-for-good/maintainer-map.json`
+anonymized-id → real handle lives in `~/.local/share/tokens-for-good/maintainer-map.json`
 (private, never committed). Quotes are verbatim from public PR threads.
 We do not include emails or DMs even if shared publicly.
 
@@ -91,7 +91,7 @@ We do not include emails or DMs even if shared publicly.
 When adding a new maintainer:
 
 1. Generate the next free anonymized id (`maintainer-M`, `maintainer-N`, …)
-   and add it to `~/.local/share/token-for-good/maintainer-map.json`.
+   and add it to `~/.local/share/tokens-for-good/maintainer-map.json`.
 2. Add one section here grouped by friendliness band (friendly / articulate
    rejector / silent closer).
 3. Always include the org/repo they steward and at least one PR URL as

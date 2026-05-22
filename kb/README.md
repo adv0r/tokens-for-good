@@ -5,7 +5,7 @@ read by future agent sessions (and by humans) to avoid repeating mistakes
 and to preserve community context across runs.
 
 The actual mutable state (PR list, helpful-signal counts, event log) lives
-locally in `~/.local/share/token-for-good/state.db` (SQLite). The schema
+locally in `~/.local/share/tokens-for-good/state.db` (SQLite). The schema
 for that database is at [`../schema/state.sql`](../schema/state.sql).
 
 ## Source-of-truth split
@@ -41,7 +41,7 @@ overwritten on the next render.
 
 - **Anonymized maintainer ids.** All public files use `maintainer-A`,
   `maintainer-B`, etc. The mapping to real handles lives **only** in
-  `~/.local/share/token-for-good/maintainer-map.json`.
+  `~/.local/share/tokens-for-good/maintainer-map.json`.
 - **Quotes are verbatim.** Never paraphrase, never trim mid-sentence. If
   paraphrasing is the only option, prefix with `(paraphrase)`.
 - **Cite sources** for every policy entry — at minimum the PR URL (PR URLs

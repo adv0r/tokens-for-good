@@ -1,6 +1,6 @@
 # BURN.md — operational rules
 
-Public mirror of the canonical operational rulebook for the Token for good
+Public mirror of the canonical operational rulebook for the Tokens for good
 agent. The agent reads from `~/.cursor/rules/burn.md` (which can be
 symlinked to this file). Updates flow: edit here → push → symlink picks up.
 
@@ -24,7 +24,7 @@ here for rules.
 
 1. **Preamble first**. Every PR body opens with
    [`templates/humble-preamble.md`](./templates/humble-preamble.md). The first
-   words are the `[Token for good](...)` hyperlink. No exceptions, no
+   words are the `[Tokens for good](...)` hyperlink. No exceptions, no
    tweaks to evade detection.
 2. **Tripwire**. Before any `gh pr create`, run `tfg vet <repo>`. If
    `BLACKLISTED`, abort. The check fires in `tb-vet-repo` and again in
@@ -33,7 +33,7 @@ here for rules.
    [`kb/contribution-types.yaml`](./kb/contribution-types.yaml). Any type
    with `tier: 4` or `probe_cap: 0` is **not** a PR — it's an issue at most.
 4. **Anonymization**. Real maintainer handles only ever appear in
-   `~/.local/share/token-for-good/maintainer-map.json`. Anywhere else
+   `~/.local/share/tokens-for-good/maintainer-map.json`. Anywhere else
    (this repo, PR bodies, replies, CHANGELOG) use the anonymized id.
 5. **Verbatim quotes only**. Never paraphrase a maintainer.
 6. **No reopening closed PRs**. A close is the end of the conversation.
@@ -82,7 +82,7 @@ session end
 
 ## Public mirror
 
-This file is committed to the public Token for good repo for transparency.
+This file is committed to the public Tokens for good repo for transparency.
 The canonical agent rules in `~/.cursor/rules/burn.md` may either be a
 symlink to this file or a separate copy maintained in lockstep.
 

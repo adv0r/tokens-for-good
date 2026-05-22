@@ -1,4 +1,4 @@
-# Token for good — contribution types
+# Tokens for good — contribution types
 # SINGLE SOURCE OF TRUTH for what kinds of contributions tb-contribute can make.
 # tb-contribute reads this file and parametrizes itself by --type.
 #
