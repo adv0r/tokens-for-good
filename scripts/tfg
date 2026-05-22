@@ -22,6 +22,7 @@ Subcommands:
   lessons render    regenerate kb/lessons.md from kb/lessons.yaml
   policy render     regenerate kb/repos-policy.md from kb/repos-policy.yaml
   pr-history render regenerate kb/pr-history.md from state.db
+  pages-build       regenerate docs/dashboard/data.json from state.db
   version           print version
 """
 from __future__ import annotations
@@ -262,6 +263,109 @@ def _format_stats_block(d: dict, ts: str) -> str:
     )
 
 
+def _top_friendly_repos(conn, limit=5):
+    try:
+        rows = conn.execute(
+            "SELECT repo, contribution_type, score, positive_count, last_positive_at "
+            "FROM v_friendly_targets LIMIT ?", (limit,)
+        ).fetchall()
+        return [dict(r) for r in rows]
+    except sqlite3.OperationalError:
+        return []
+
+
+def _model_breakdown(conn):
+    """Return [{model, n, merged, n_decided, thanked}] for non-NULL models."""
+    try:
+        rows = conn.execute(
+            """
+            SELECT
+              COALESCE(model, '(unknown)') AS model,
+              COUNT(*) AS n,
+              SUM(CASE WHEN state = 'merged' THEN 1 ELSE 0 END) AS merged,
+              SUM(CASE WHEN state IN ('merged','closed') THEN 1 ELSE 0 END) AS n_decided
+            FROM prs
+            GROUP BY COALESCE(model, '(unknown)')
+            ORDER BY n DESC
+            """
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    out = []
+    for r in rows:
+        thanked = conn.execute(
+            "SELECT COUNT(*) FROM events e JOIN prs p ON e.pr_id = p.id "
+            "WHERE e.kind = 'thanks_replied' "
+            "AND COALESCE(p.model, '(unknown)') = ?",
+            (r["model"],),
+        ).fetchone()[0]
+        out.append({
+            "model": r["model"], "n": r["n"], "merged": r["merged"],
+            "n_decided": r["n_decided"], "thanked": thanked,
+        })
+    return out
+
+
+def _optouts_stats(conn):
+    """Count explicit opt-outs honored and time-to-honor in seconds."""
+    try:
+        rows = conn.execute(
+            "SELECT ts, payload_json FROM events WHERE kind = 'explicit_optout' "
+            "ORDER BY ts DESC"
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return {"count": 0, "avg_seconds": None, "most_recent": None}
+    if not rows:
+        return {"count": 0, "avg_seconds": None, "most_recent": None}
+    deltas = []
+    for r in rows:
+        try:
+            payload = json.loads(r["payload_json"] or "{}")
+            dt = payload.get("response_time_seconds")
+            if isinstance(dt, (int, float)):
+                deltas.append(dt)
+        except json.JSONDecodeError:
+            pass
+    avg = sum(deltas) / len(deltas) if deltas else None
+    payload = {}
+    try:
+        payload = json.loads(rows[0]["payload_json"] or "{}")
+    except json.JSONDecodeError:
+        pass
+    return {
+        "count": len(rows),
+        "avg_seconds": avg,
+        "most_recent": {
+            "repo": payload.get("repo"),
+            "at": rows[0]["ts"],
+        },
+    }
+
+
+def _emerging_patterns(conn, min_citations=2):
+    """Read lesson_candidate events; aggregate by title."""
+    try:
+        rows = conn.execute(
+            "SELECT payload_json FROM events WHERE kind = 'lesson_candidate'"
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    buckets: dict[str, list[str]] = {}
+    for r in rows:
+        try:
+            p = json.loads(r["payload_json"] or "{}")
+        except json.JSONDecodeError:
+            continue
+        title = p.get("title")
+        if title:
+            buckets.setdefault(title, []).append(p.get("source", ""))
+    return [
+        {"title": t, "citations": len(srcs), "sources": srcs}
+        for t, srcs in buckets.items()
+        if len(srcs) >= min_citations
+    ]
+
+
 def cmd_stats(args):
     conn = db_connect()
     d = _dashboard_row(conn)
@@ -277,6 +381,56 @@ def cmd_stats(args):
     print(f"  Unique repos:     {d['unique_repos']}")
     print(f"  Helpful (+):      {d['helpful_count']}")
     print(f"  Unhelpful (-):    {d['unhelpful_count']}")
+
+    # PRs by model (v2.1)
+    mods = _model_breakdown(conn)
+    if mods:
+        print()
+        print("PRs BY MODEL (current cycle):")
+        for m in mods:
+            mr = (
+                f"{round(100 * (m['merged'] or 0) / m['n_decided'])}%"
+                if m['n_decided'] else "n/a"
+            )
+            print(
+                f"  {m['model']:24}  {m['n']:3}   "
+                f"merge rate: {mr:<5}   thanked: {m['thanked']}"
+            )
+
+    # Top friendly repos (v2.1)
+    fr = _top_friendly_repos(conn, limit=5)
+    if fr:
+        print()
+        print("TOP 5 FRIENDLY REPOS (by affinity score):")
+        for f in fr:
+            print(
+                f"  {f['repo']:30}  score={f['score']:.1f}   "
+                f"({f['positive_count']} positive · last {f['last_positive_at'] or '—'})"
+            )
+
+    # Emerging patterns (v2.1)
+    ep = _emerging_patterns(conn)
+    if ep:
+        print()
+        print("EMERGING PATTERNS (lesson candidates, N≥2):")
+        for e in ep:
+            srcs = ", ".join(s for s in e["sources"] if s)
+            print(f"  {e['title']}")
+            print(f"    citations: {e['citations']}  ({srcs})")
+
+    # Opt-outs (v2.1)
+    oo = _optouts_stats(conn)
+    print()
+    print(f"EXPLICIT OPT-OUTS HONORED: {oo['count']}")
+    if oo["count"]:
+        if oo["avg_seconds"] is not None:
+            mins = oo["avg_seconds"] / 60.0
+            print(f"  avg time-to-honor: {mins:.1f} minutes")
+        if oo["most_recent"] and oo["most_recent"]["repo"]:
+            print(
+                f"  most recent: {oo['most_recent']['repo']} "
+                f"on {oo['most_recent']['at'][:10]}"
+            )
 
     if args.update_readme:
         readme = REPO_ROOT / "README.md"
@@ -572,6 +726,94 @@ def cmd_pr_history_render(args):
     conn.close()
 
 
+# ---- subcommand: pages-build ----------------------------------------------
+
+def cmd_pages_build(args):
+    """Regenerate docs/dashboard/data.json from state.db for GitHub Pages."""
+    conn = db_connect()
+    d = _dashboard_row(conn)
+    mods = _model_breakdown(conn)
+    fr = _top_friendly_repos(conn, limit=10)
+    oo = _optouts_stats(conn)
+    ep = _emerging_patterns(conn)
+
+    # By contribution type, stacked by state.
+    try:
+        rows = conn.execute(
+            "SELECT contribution_type, state, COUNT(*) AS n "
+            "FROM prs GROUP BY contribution_type, state"
+        ).fetchall()
+    except sqlite3.OperationalError:
+        rows = []
+    by_type: dict[str, dict] = {}
+    for r in rows:
+        bt = by_type.setdefault(r["contribution_type"] or "unknown",
+                                {"merged": 0, "closed": 0, "open": 0, "draft": 0})
+        if r["state"] in bt:
+            bt[r["state"]] = r["n"]
+
+    # Merge-rate trend by ISO week (limit to cohort window).
+    try:
+        rows = conn.execute(
+            """
+            SELECT
+              strftime('%Y-W%W', opened_at) AS week,
+              SUM(CASE WHEN state = 'merged' THEN 1 ELSE 0 END) AS merged,
+              SUM(CASE WHEN state IN ('merged','closed') THEN 1 ELSE 0 END) AS decided,
+              COUNT(*) AS total
+            FROM prs
+            WHERE opened_at >= ?
+            GROUP BY week
+            ORDER BY week
+            """,
+            (INITIATIVE_START,),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        rows = []
+    merge_rate_by_week = []
+    for r in rows:
+        rate = (r["merged"] / r["decided"]) if r["decided"] else None
+        merge_rate_by_week.append({
+            "week": r["week"],
+            "merged": r["merged"],
+            "decided": r["decided"],
+            "total": r["total"],
+            "merge_rate": rate,
+        })
+
+    data = {
+        "schema": 1,
+        "generated_at": now_iso(),
+        "kpi": {
+            "total_prs": d["total_prs"] or 0,
+            "merged": d["merged"] or 0,
+            "closed_unmerged": d["closed_unmerged"] or 0,
+            "still_open": d["still_open"] or 0,
+            "unique_repos": d["unique_repos"] or 0,
+            "helpful_signal_rate": d["helpful_signal_rate"],
+            "helpful_count": d["helpful_count"] or 0,
+            "unhelpful_count": d["unhelpful_count"] or 0,
+        },
+        "by_model": mods,
+        "by_type": [
+            {"contribution_type": k, **v}
+            for k, v in sorted(by_type.items(), key=lambda kv: -sum(kv[1].values()))
+        ],
+        "merge_rate_by_week": merge_rate_by_week,
+        "top_friendly": fr,
+        "emerging_patterns": ep,
+        "opt_outs": oo,
+        "initiative_start": INITIATIVE_START,
+    }
+
+    out_dir = REPO_ROOT / "docs" / "dashboard"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out = out_dir / "data.json"
+    out.write_text(json.dumps(data, indent=2, default=str) + "\n", encoding="utf-8")
+    conn.close()
+    print(f"wrote {out}")
+
+
 # ---- argparse wiring ------------------------------------------------------
 
 def main(argv=None):
@@ -622,6 +864,10 @@ def main(argv=None):
     s_hist = sub.add_parser("pr-history", help="PR history CRUD")
     sub_h = s_hist.add_subparsers(dest="hist_cmd")
     sub_h.add_parser("render").set_defaults(func=cmd_pr_history_render)
+
+    sub.add_parser("pages-build",
+                   help="regenerate docs/dashboard/data.json from state.db"
+                   ).set_defaults(func=cmd_pages_build)
 
     sub.add_parser("version", help="print version").set_defaults(
         func=lambda a: print(f"tfg {VERSION}"))
