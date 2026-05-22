@@ -1,0 +1,195 @@
+# Token for good — repository policy (machine-readable)
+# Maintainer handles are anonymized as maintainer-A, maintainer-B, etc.
+# The mapping anonymized-id → real handle lives at
+#   ~/.local/share/token-for-good/maintainer-map.json
+# which is NEVER committed.
+#
+# All quotes are verbatim from public PR threads.
+# Severity: HARD = never again | SOFT = pause N days | CONDITIONAL = certain types only
+
+version: 1
+last_updated: 2026-05-22
+
+policies:
+  # ---- Blacklist (HARD) ------------------------------------------------------
+
+  - repo: jupyter/*
+    category: blacklist
+    severity: HARD
+    signal_type: explicit
+    date: 2026-05-20
+    maintainer_id: maintainer-A
+    quote: "self-identified as unattended spam, I suggest blocking the user across all orgs"
+    pr_link: https://github.com/jupyter/notebook/pull/7922
+    cooldown_days: 9999
+    notes: org-wide block recommendation
+
+  - repo: jupyterlab/jupyterlab
+    category: blacklist
+    severity: HARD
+    signal_type: explicit
+    date: 2026-05-20
+    maintainer_id: maintainer-B
+    quote: null
+    pr_link: https://github.com/jupyterlab/jupyterlab/pull/18914
+    cooldown_days: 9999
+    notes: |
+      Closed 4 docs PRs in one sweep; asks for human-reviewed-before-submission
+      contributions only.
+
+  - repo: typst/typst
+    category: blacklist
+    severity: HARD
+    signal_type: explicit
+    date: 2026-05-20
+    maintainer_id: maintainer-C
+    quote: "Do not vibecode the change!"
+    pr_link: https://github.com/typst/typst/pull/8317
+    cooldown_days: 9999
+
+  - repo: astral-sh/*
+    category: blacklist
+    severity: HARD
+    signal_type: silent
+    date: 2026-05-21
+    maintainer_id: maintainer-D
+    quote: null
+    pr_link: https://github.com/astral-sh/ruff/pull/25292
+    cooldown_days: 9999
+    notes: closed within ~14 minutes, no comment; org-wide extrapolation
+
+  - repo: biomejs/biome
+    category: blacklist
+    severity: HARD
+    signal_type: silent
+    date: 2026-05-21
+    maintainer_id: maintainer-E
+    quote: null
+    pr_link: https://github.com/biomejs/biome/pull/10434
+    cooldown_days: 9999
+    notes: silent close, AgentScan flag
+
+  - repo: pallets/*
+    category: blacklist
+    severity: HARD
+    signal_type: silent
+    date: 2026-05-21
+    maintainer_id: maintainer-F
+    quote: null
+    pr_link: https://github.com/pallets/flask/pull/6029
+    cooldown_days: 9999
+    notes: closed within ~90 minutes, no comment; single-BDFL pattern (lesson L002)
+
+  - repo: pre-commit/pre-commit
+    category: blacklist
+    severity: HARD
+    signal_type: silent
+    date: 2026-05-21
+    maintainer_id: maintainer-G
+    quote: null
+    pr_link: https://github.com/pre-commit/pre-commit/pull/3697
+    cooldown_days: 9999
+    notes: closed within ~3.5 hours, no comment
+
+  - repo: godotengine/godot-docs
+    category: blacklist
+    severity: HARD
+    signal_type: silent
+    date: 2026-05-21
+    maintainer_id: null
+    quote: null
+    pr_link: https://github.com/godotengine/godot-docs/pull/12008
+    cooldown_days: 9999
+    notes: closed within ~40 minutes, no comment
+
+  # ---- Blacklist (SOFT) ------------------------------------------------------
+
+  - repo: pymc-devs/pymc
+    category: blacklist
+    severity: SOFT
+    signal_type: silent
+    date: 2026-05-20
+    maintainer_id: null
+    quote: null
+    pr_link: https://github.com/pymc-devs/pymc/pull/8309
+    cooldown_days: 60
+
+  - repo: wagtail/wagtail
+    category: blacklist
+    severity: SOFT
+    signal_type: silent
+    date: 2026-05-20
+    maintainer_id: null
+    quote: null
+    pr_link: https://github.com/wagtail/wagtail/pull/14235
+    cooldown_days: 60
+    notes: 3 docs PRs closed without merge
+
+  # ---- Friendly --------------------------------------------------------------
+
+  - repo: astropy/astropy
+    category: friendly
+    severity: null
+    signal_type: explicit
+    date: 2026-05-21
+    maintainer_id: maintainer-I
+    quote: null
+    pr_link: https://github.com/astropy/astropy/pull/19787
+    cooldown_days: 7
+    notes: explicit AI-friendly stance; surgical doc/typo fixes welcome
+
+  - repo: gohugoio/hugoDocs
+    category: friendly
+    severity: null
+    signal_type: explicit
+    date: 2026-05-20
+    maintainer_id: maintainer-H
+    quote: null
+    pr_link: https://github.com/gohugoio/hugoDocs/pull/3503
+    cooldown_days: 7
+    notes: merged 3/3 of our PRs; cares about Closes #N discipline
+
+  - repo: ratatui/ratatui
+    category: friendly
+    severity: null
+    signal_type: explicit
+    date: 2026-05-21
+    maintainer_id: null
+    quote: null
+    pr_link: https://github.com/ratatui/ratatui/pull/2554
+    cooldown_days: 7
+    notes: doc-comment typo merged same-day
+
+  - repo: JabRef/user-documentation
+    category: friendly
+    severity: null
+    signal_type: explicit
+    date: 2026-05-21
+    maintainer_id: null
+    quote: null
+    pr_link: https://github.com/JabRef/user-documentation/pull/627
+    cooldown_days: 7
+
+  - repo: swarm-ai-safety/swarm
+    category: friendly
+    severity: null
+    signal_type: explicit
+    date: 2026-05-22
+    maintainer_id: null
+    quote: null
+    pr_link: https://github.com/swarm-ai-safety/swarm/pull/441
+    cooldown_days: 7
+    notes: issue-linked CLI hardening merged
+
+  # ---- Untested do-not-try ---------------------------------------------------
+
+  - repo: denoland/deno
+    category: untested
+    severity: HARD
+    signal_type: policy
+    date: 2026-05-22
+    maintainer_id: null
+    quote: null
+    pr_link: null
+    cooldown_days: 9999
+    notes: explicit anti-AI gating in PR template (do-not-try)

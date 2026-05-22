@@ -1,0 +1,29 @@
+# Token for good — public repo .gitignore
+# Anything that holds runtime state, secrets, or private mappings stays LOCAL.
+
+# Local state — never commit
+.local/
+state.db
+state.db-journal
+state.db-wal
+*.db
+*.db-journal
+*.db-wal
+user-state.json
+maintainer-map.json
+logs/
+.env
+.env.*
+
+# Editor / OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.adv0r.tfg.daily</string>
+
+  <!-- Adjust the path below to where you cloned the repo. -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/CHANGE_ME/Desktop/token-for-good/scripts/tfg</string>
+    <string>session</string>
+    <string>--auto</string>
+  </array>
+
+  <!-- Run once a day at 09:00 local time. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/CHANGE_ME/.local/share/token-for-good/logs/tfg-daily.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/CHANGE_ME/.local/share/token-for-good/logs/tfg-daily.err.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+</dict>
+</plist>

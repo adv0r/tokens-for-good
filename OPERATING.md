@@ -1,0 +1,132 @@
+# OPERATING.md — taking over Token for good
+
+If you're a human operator (or an agent acting on behalf of one) preparing to
+run this initiative for the first time on a new machine — start here.
+
+## Prerequisites
+
+- macOS or Linux. Tested on macOS 25.5 (Darwin), bash 3.2+ / zsh.
+- [`gh`](https://cli.github.com/) ≥ 2.50, authenticated for your handle:
+  ```
+  gh auth status
+  ```
+  Required scopes: `repo`, `read:org`, `workflow`.
+- `python3` ≥ 3.8 with `pyyaml` available system-wide:
+  ```
+  pip3 install pyyaml
+  ```
+- `sqlite3` CLI (preinstalled on macOS).
+
+## First-time setup (5 minutes)
+
+1. Clone the repo somewhere stable:
+   ```
+   git clone https://github.com/adv0r/token-for-good ~/Desktop/token-for-good
+   cd ~/Desktop/token-for-good
+   ```
+2. Initialize local state:
+   ```
+   scripts/tfg init
+   ```
+   This creates `~/.local/share/token-for-good/state.db` from
+   `schema/state.sql`, plus a stub `user-state.json`.
+3. Edit your handle and language preferences:
+   ```
+   $EDITOR ~/.local/share/token-for-good/user-state.json
+   ```
+   At minimum, set `github_handle` to your own handle.
+4. Pull the current PR cohort:
+   ```
+   scripts/tfg refresh
+   scripts/tfg stats
+   ```
+   The first refresh populates `state.db` from `gh search prs --author "@me"
+   --created ">=2026-05-15"` (the initiative's start date).
+
+## First session walkthrough
+
+```
+cd ~/Desktop/token-for-good
+scripts/tfg session            # default: confirmed mode (asks before each PR)
+```
+
+The orchestrator skill (`skills/tb-session/SKILL.md`) walks through
+discovery → vetting → contribution → PR craft → push.
+
+In **confirmed mode** (the default), the agent asks before each PR. In
+**autonomous mode** (`--auto`, used by launchd), the agent executes the
+full pipeline without asking; it's reserved for actions that are demonstrably
+safe (tier-1 typo fixes in friendly repos with a known-good probe cap).
+
+## Regenerating rendered docs
+
+The `kb/*.md` files are rendered from `kb/*.yaml` and `state.db`. Whenever
+you edit a YAML, regenerate:
+
+```
+scripts/tfg lessons render
+scripts/tfg policy render
+scripts/tfg pr-history render
+scripts/tfg stats --update-readme
+```
+
+Don't edit the rendered `.md` files by hand — they'll be overwritten.
+
+## Where the state lives + how to back it up
+
+```
+~/.local/share/token-for-good/
+├── state.db              # SQLite, single source of truth for mutable state
+├── state.db-wal          # write-ahead log (transient, do not back up alone)
+├── state.db-shm          # shared memory (transient)
+├── user-state.json       # your preferences
+├── maintainer-map.json   # anonymized-id ↔ real-handle mapping (PRIVATE)
+└── logs/                 # event log (append-only)
+```
+
+To back up: `cp -R ~/.local/share/token-for-good ~/Backups/token-for-good-$(date +%F)`.
+SQLite checkpoints WAL on close — best to back up after a clean process exit.
+
+## Updating your handle / preferences
+
+Either edit `user-state.json` directly, or in v0.2 use the planned
+`tfg config <key> <value>` subcommand. For now: hand-edit the JSON.
+
+## Adding a maintainer to the anonymized map
+
+When a new maintainer appears in `kb/repos-policy.yaml` or
+`kb/lessons.yaml`, edit `~/.local/share/token-for-good/maintainer-map.json`
+to add the anonymized-id → real-handle row. The public files stay in sync
+because they only ever reference the anonymized id.
+
+## Retiring this initiative
+
+If you want to gracefully wind down the initiative:
+
+1. Mark all `lessons.yaml` entries with `status: retired` and a brief
+   `retired_reason`.
+2. Set the cooldown for every entry in `repos-policy.yaml` to `9999` days
+   (effectively "do not contact").
+3. Run `tfg lessons render` and `tfg policy render` to regenerate the public
+   `.md` files.
+4. Add a banner to `README.md`: "This initiative ended on YYYY-MM-DD. The
+   knowledge base is preserved for posterity."
+5. Push the final commit and archive the repo (`gh repo archive
+   adv0r/token-for-good`).
+
+## Scheduled runs (optional)
+
+To wake the agent up daily for follow-ups, see
+[`scripts/launchd/cron-setup.md`](./scripts/launchd/cron-setup.md). The
+plist runs `tfg session --auto` once a day, which only acts when there's
+something safe to do (followups due, no new contributions).
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `error: state.db not found` | local state never initialized | `tfg init` |
+| `error: PyYAML required` | system Python missing yaml | `pip3 install pyyaml` |
+| `error: gh search failed` | gh not authenticated | `gh auth login` |
+| Stats look stale | refresh hasn't run | `tfg refresh && tfg stats --update-readme` |
+| README diff every run | timestamp updating without data change | known: bug if you see it; the script reuses prior timestamp when body is unchanged |

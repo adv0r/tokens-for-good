@@ -1,0 +1,137 @@
+# Token for good — contribution types
+# SINGLE SOURCE OF TRUTH for what kinds of contributions tb-contribute can make.
+# tb-contribute reads this file and parametrizes itself by --type.
+#
+# Tier legend:
+#   1 — minimal risk; tb-contribute may PR cold (subject to probe_cap)
+#   2 — low risk; PR cold with caution
+#   3 — medium risk; usually open an issue first (`open_issue_first: true`)
+#   4 — high/critical risk; never PR cold; output_format=issue or invitation only
+
+version: 1
+
+types:
+  typo:
+    tier: 1
+    risk: minimal
+    probe_cap: 3                        # max PRs of this type per repo before signal
+    cooldown_days: 0                    # additional cooldown after a PR of this type
+    open_issue_first: false
+    preamble: standard
+    body_template: pr-body-trivial.md
+    pre_checks: [doubled_articles, codespell_verified]
+    examples_pr: https://github.com/gohugoio/hugoDocs/pull/3503
+
+  broken-link:
+    tier: 1
+    risk: minimal
+    probe_cap: 3
+    cooldown_days: 0
+    open_issue_first: false
+    preamble: standard
+    body_template: pr-body-trivial.md
+    pre_checks: [lychee_verified]
+    examples_pr: null
+
+  stale-issue-triage:
+    tier: 1
+    risk: minimal
+    probe_cap: 5
+    cooldown_days: 0
+    open_issue_first: false             # this is a comment, not a PR
+    output_format: comment
+    body_template: stale-issue-comment.md
+    examples_pr: null
+    notes: |
+      Comment respectfully on stale issues that may already be fixed in main.
+      NEVER close issues. NEVER mark as duplicate. One comment per issue per
+      session.
+
+  docs-clarify:
+    tier: 2
+    risk: low
+    probe_cap: 1
+    cooldown_days: 14
+    open_issue_first: false
+    preamble: standard
+    body_template: pr-body-standard.md
+
+  readme-polish:
+    tier: 2
+    risk: low
+    probe_cap: 1
+    cooldown_days: 14
+    open_issue_first: false
+    preamble: standard
+    body_template: pr-body-standard.md
+
+  changelog-cleanup:
+    tier: 2
+    risk: low
+    probe_cap: 1
+    cooldown_days: 30
+    open_issue_first: false
+    preamble: standard
+    body_template: pr-body-standard.md
+
+  docs-new:
+    tier: 3
+    risk: medium
+    probe_cap: 1
+    cooldown_days: 30
+    open_issue_first: true              # propose via issue first
+    preamble: standard
+    body_template: pr-body-standard.md
+
+  i18n-fix:
+    tier: 3
+    risk: medium
+    probe_cap: 1
+    cooldown_days: 30
+    open_issue_first: false
+    require_native_language: true       # check user-state.json languages
+    preamble: standard
+    body_template: pr-body-standard.md
+
+  test-coverage:
+    tier: 4
+    risk: high
+    probe_cap: 0                        # NEVER PR cold; only issue
+    cooldown_days: 60
+    open_issue_first: true              # MANDATORY
+    output_format: issue
+    notes: |
+      Many maintainers strongly dislike unsolicited test PRs. Default to
+      opening a polite issue first asking "would a PR for this be welcome?"
+
+  dep-bump:
+    tier: 4
+    risk: high
+    probe_cap: 0
+    cooldown_days: 90
+    open_issue_first: true
+    output_format: issue
+    notes: |
+      Most repos have dependabot or renovate already. Adding unsolicited bumps
+      is usually noise. Open an issue only if there's a clear security
+      advisory and no automated bot present.
+
+  security-issue:
+    tier: 4
+    risk: high
+    probe_cap: 1
+    cooldown_days: 0
+    output_format: issue                # ALWAYS issue, never PR
+    notes: |
+      Find a vulnerability via scan → open a private security advisory if the
+      repo has one, else open a regular issue with a polite, factual report.
+
+  security-fix:
+    tier: 4
+    risk: critical
+    probe_cap: 0
+    cooldown_days: 90
+    open_issue_first: true              # absolutely never cold
+    output_format: issue
+    notes: |
+      Only after explicit maintainer invitation. Otherwise file an issue.
