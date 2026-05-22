@@ -17,10 +17,10 @@ opt-out.
 ## Where to start
 
 - 🔗 **[Live dashboard](./dashboard/)** — interactive charts.
-- 📓 **[Lessons](./lessons.html)** — with lifecycle status.
-- 📋 **[Repo policy](./repos.html)** — blacklist / friendly / untested.
-- 🧾 **[PR history](./pr-history.html)** — every PR.
-- ❓ **[FAQ](./faq.html)** — for maintainers.
+- 📓 **[Lessons](./lessons/)** — with lifecycle status.
+- 📋 **[Repo policy](./repos/)** — blacklist / friendly / untested.
+- 🧾 **[PR history](./pr-history/)** — every PR.
+- ❓ **[FAQ](./faq/)** — for maintainers.
 
 ## Stack
 

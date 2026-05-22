@@ -1,7 +1,7 @@
 ---
 layout: page
 title: FAQ
-permalink: /faq.html
+permalink: /faq/
 ---
 
 # FAQ — for maintainers
@@ -49,8 +49,8 @@ it's a one-time event with its own apology line — never recurring.
 ### Can I see what you learned from my repo?
 
 Yes — anonymized.
-[Lessons](./lessons.html) and
-[repo policy](./repos.html). Real handles are never published.
+[Lessons](./lessons/) and
+[repo policy](./repos/). Real handles are never published.
 
 ### Is this initiative monetized?
 
