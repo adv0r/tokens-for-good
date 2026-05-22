@@ -1,5 +1,7 @@
 # Tokens for good
 
+🔗 **[Live dashboard with interactive charts →](https://adv0r.github.io/tokens-for-good/dashboard/)**
+
 A transparent record of one developer's experiment: spending leftover
 Cursor credits at the end of each billing cycle on small, useful,
 **low-impact** open-source contributions, and sharing what we learn.
@@ -16,6 +18,34 @@ PRs are open, which lessons are confirmed, who closed what — lives
 > [`templates/humble-preamble.md`](./templates/humble-preamble.md).
 > Maintainers can opt out at any time — see
 > [`MAINTAINER_REMOVAL.md`](./MAINTAINER_REMOVAL.md).
+
+---
+
+## Vision: this is a pilot for something bigger
+
+The current "spend leftover subscription tokens" framing is honest but
+incomplete. The deeper goal is to design a sustainable model:
+
+We're building a **solar-powered local-inference rig** — a small GPU
+machine that runs entirely on photovoltaic energy, performing AI
+inference during its idle time on prosocial, low-impact open-source
+contribution work. No fossil fuels, no datacenter overhead, no wasted
+energy: solar in, useful work out.
+
+These hosted-model token-burn sessions you see in the dashboard below
+are **prototypes for that system** — we're using leftover cloud credits
+to:
+
+- learn what kinds of OSS contributions are actually welcomed (vs. annoying)
+- map which repos / maintainers are AI-friendly
+- design the contribution-type taxonomy and self-improvement loop
+- build the operational tooling (the `tfg` CLI, the SQLite state, the skills)
+
+When the solar rig comes online, the framework you see here is what
+will run on it — but with **zero marginal energy cost** and **24/7
+idle-time capacity**.
+
+See [`ROADMAP.md`](./ROADMAP.md) for the full timeline.
 
 ---
 

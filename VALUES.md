@@ -78,6 +78,48 @@ If a maintainer requests removal of their quote, we redact within 24h
   The preamble is the disclosure; commit metadata stays clean.
 - **No tweaking the preamble** to slip past detection. Lesson L003.
 
+## The opt-out promise
+
+Every PR explicitly invites a one-line "no thanks" reply. We commit to
+honoring it within 24h:
+
+- Auto-apology reply.
+- Auto-close of our PR (removes the burden from the maintainer's queue).
+- Permanent blacklist of the repo — org-wide if the maintainer is the
+  BDFL.
+- Cooldown set to effectively forever (9999 days).
+
+The "Explicit opt-outs honored" counter in the dashboard tracks
+compliance publicly — if that number doesn't match reality, that's a
+bug to report via [`MAINTAINER_REMOVAL.md`](./MAINTAINER_REMOVAL.md).
+
+## Why solar + local inference (the bigger goal)
+
+The economic logic of "burn the leftover cloud credits" only works once
+a month. The economic logic of "burn the solar energy that would
+otherwise be wasted" works every day.
+
+Solar panels produce more energy than a typical home uses during sunny
+daylight hours. That excess either:
+
+- gets sold back to the grid at unfavorable rates,
+- gets wasted (panels throttle when battery is full), or
+- charges a battery to be used later.
+
+We propose a fourth path: convert that excess into AI inference cycles,
+and spend those cycles on prosocial open-source work. The framework in
+this repo is the software half of that vision. The hardware half is in
+progress (see [`ROADMAP.md`](./ROADMAP.md)).
+
+### Honest current limitations
+
+- The local rig doesn't exist yet — Phase 1 is using hosted models.
+- Open-weights models are not yet at parity with Claude/GPT for surgical
+  OSS work.
+- Solar capacity sizing is non-trivial; the first prototype will be small.
+
+We're publishing the framework anyway because the methodology is portable.
+
 ## Failure mode bias
 
 When in doubt, stop. The cheapest thing to do is **not contribute**. Every
