@@ -1,67 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tokens for good — Live Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-  <link rel="stylesheet" href="../assets/style.css">
+  <title>Tokens for good — live dashboard</title>
+  <meta name="description" content="Transparent live record of AI-agent open-source contributions: helpful-signal rate, per-org breakdown, opt-outs honored.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0e14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fafbfc" media="(prefers-color-scheme: light)">
+
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="../assets/dashboard.css">
+
+  <script>
+    // Set theme before paint to avoid FOUC. Hand-rolled, no framework.
+    (function () {
+      try {
+        var stored = localStorage.getItem('tfg-theme');
+        var prefers = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', stored || prefers);
+      } catch (e) { /* localStorage blocked — keep default */ }
+    })();
+  </script>
 </head>
 <body>
-  <div class="dashboard-page">
-    <header>
-      <h1>Tokens for good — Live Dashboard</h1>
-      <p class="meta">
-        Updated: <span id="last-updated">…</span> ·
-        <a href="../">home</a> ·
-        <a href="../faq.html">FAQ</a> ·
-        <a href="https://github.com/adv0r/tokens-for-good">source</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <a class="brand" href="../" aria-label="Tokens for good — home">
+        <span class="brand-mark" aria-hidden="true">◆</span>
+        <span class="brand-name">tokens-for-good</span>
+      </a>
+      <div class="topbar-meta">
+        <span class="pill" id="updated-pill" title="Last data refresh">
+          <span class="dot" aria-hidden="true"></span>
+          Updated <time id="last-updated" datetime="">…</time>
+        </span>
+        <a class="topbar-link" href="./data.json">data.json</a>
+        <a class="topbar-link" href="https://github.com/adv0r/tokens-for-good">repo</a>
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-pressed="false"
+          aria-label="Toggle theme">
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2" fill="currentColor"/>
+            <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <line x1="12" y1="2.4" x2="12" y2="5.2"/>
+              <line x1="12" y1="18.8" x2="12" y2="21.6"/>
+              <line x1="2.4" y1="12" x2="5.2" y2="12"/>
+              <line x1="18.8" y1="12" x2="21.6" y2="12"/>
+              <line x1="4.9" y1="4.9" x2="6.9" y2="6.9"/>
+              <line x1="17.1" y1="17.1" x2="19.1" y2="19.1"/>
+              <line x1="4.9" y1="19.1" x2="6.9" y2="17.1"/>
+              <line x1="17.1" y1="6.9" x2="19.1" y2="4.9"/>
+            </g>
+          </svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19.5 14.6A8 8 0 0 1 9.4 4.5 8 8 0 1 0 19.5 14.6z" fill="currentColor"/>
+          </svg>
+          <span class="sr-only">Toggle dark / light theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="dashboard">
+
+    <section class="hero" aria-labelledby="hero-label">
+      <p class="hero-eyebrow" id="hero-label">Helpful-signal rate</p>
+      <p class="hero-kpi" id="hero-kpi" data-target="59"><span class="hero-num">—</span><span class="hero-unit">%</span></p>
+      <p class="hero-sub">of <span id="hero-decided-count">—</span> decided PRs were helpful — merged or maintainer-thanked.</p>
+
+      <ul class="ministats" aria-label="Headline counts">
+        <li class="ministat">
+          <span class="ministat-label">Total PRs</span>
+          <span class="ministat-value" id="ms-total" data-target="0">—</span>
+        </li>
+        <li class="ministat">
+          <span class="ministat-label">Merged</span>
+          <span class="ministat-value ministat-merged" id="ms-merged" data-target="0">—</span>
+        </li>
+        <li class="ministat">
+          <span class="ministat-label">Closed unmerged</span>
+          <span class="ministat-value ministat-closed" id="ms-closed" data-target="0">—</span>
+        </li>
+        <li class="ministat">
+          <span class="ministat-label">Still open</span>
+          <span class="ministat-value ministat-open" id="ms-open" data-target="0">—</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="cards" aria-label="Charts">
+
+      <article class="card card-state" aria-labelledby="card-state-h">
+        <header class="card-head">
+          <h2 id="card-state-h" class="card-title">PR state</h2>
+          <p class="card-sub">share of all PRs</p>
+        </header>
+        <div class="card-body chart-shell">
+          <canvas id="chart-state" aria-label="Donut chart: open, merged, and closed-unmerged share of all PRs"></canvas>
+          <div class="donut-center" id="chart-state-center" aria-hidden="true">
+            <span class="donut-center-value">—</span>
+            <span class="donut-center-label">PRs</span>
+          </div>
+        </div>
+        <table class="sr-only" id="chart-state-table">
+          <caption>PR state breakdown</caption>
+          <thead><tr><th>State</th><th>Count</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </article>
+
+      <article class="card card-org" aria-labelledby="card-org-h">
+        <header class="card-head">
+          <h2 id="card-org-h" class="card-title">By org</h2>
+          <p class="card-sub">top 10 by PR count · bar tint = helpful rate</p>
+        </header>
+        <div class="card-body chart-shell chart-shell-tall">
+          <canvas id="chart-org" aria-label="Horizontal bar chart: PR count per organization, colored by helpful-signal rate"></canvas>
+        </div>
+        <table class="sr-only" id="chart-org-table">
+          <caption>PRs per organization</caption>
+          <thead><tr><th>Org</th><th>PRs</th><th>Helpful rate</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </article>
+
+      <article class="card card-time" aria-labelledby="card-time-h">
+        <header class="card-head">
+          <h2 id="card-time-h" class="card-title">Over time</h2>
+          <p class="card-sub">cumulative PRs opened &amp; merged</p>
+        </header>
+        <div class="card-body chart-shell">
+          <canvas id="chart-time" aria-label="Cumulative area chart: PRs opened over time with a second line for merged"></canvas>
+        </div>
+        <table class="sr-only" id="chart-time-table">
+          <caption>Cumulative PRs opened and merged by day</caption>
+          <thead><tr><th>Day</th><th>Opened (cum.)</th><th>Merged (cum.)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </article>
+
+      <article class="card card-type" aria-labelledby="card-type-h">
+        <header class="card-head">
+          <h2 id="card-type-h" class="card-title">By type</h2>
+          <p class="card-sub">contribution category</p>
+        </header>
+        <div class="card-body chart-shell">
+          <canvas id="chart-type" aria-label="Donut chart: PRs split by contribution type"></canvas>
+        </div>
+        <table class="sr-only" id="chart-type-table">
+          <caption>PRs by contribution type</caption>
+          <thead><tr><th>Type</th><th>Count</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </article>
+
+      <article class="card card-model" aria-labelledby="card-model-h">
+        <header class="card-head">
+          <h2 id="card-model-h" class="card-title">By model</h2>
+          <p class="card-sub">AI model attribution</p>
+        </header>
+        <div class="card-body chart-shell">
+          <canvas id="chart-model" aria-label="Donut chart: PRs per AI model used"></canvas>
+        </div>
+        <table class="sr-only" id="chart-model-table">
+          <caption>PRs by AI model</caption>
+          <thead><tr><th>Model</th><th>Count</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </article>
+
+      <article class="card card-optout" aria-labelledby="card-optout-h">
+        <header class="card-head">
+          <h2 id="card-optout-h" class="card-title">Opt-outs honored</h2>
+          <p class="card-sub">maintainer requests to stop</p>
+        </header>
+        <div class="card-body card-body-center">
+          <p class="optout-num" id="optout-num" data-target="0">—</p>
+          <p class="optout-note" id="optout-note">…</p>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-links">
+        <a href="https://github.com/adv0r/tokens-for-good/blob/main/VALUES.md">VALUES</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/adv0r/tokens-for-good/blob/main/AGENTS.md">AGENTS</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/adv0r/tokens-for-good/blob/main/ROADMAP.md">ROADMAP</a>
+        <span aria-hidden="true">·</span>
+        <a href="../faq.html">FAQ</a>
       </p>
-      <p class="meta">
-        Primary metric: <strong>helpful-signal rate</strong> — decided PRs
-        that produced a merge or explicit positive signal. Not raw merge
-        rate, on purpose
-        (<a href="https://github.com/adv0r/tokens-for-good/blob/main/VALUES.md">VALUES.md</a>).
+      <p class="footer-meta">
+        Built by <a href="https://github.com/adv0r/tokens-for-good">tokens-for-good</a>
+        · data <code id="footer-sha">—</code>
       </p>
-    </header>
+    </div>
+  </footer>
 
-    <section id="kpi" aria-label="key metrics"></section>
-
-    <section class="chart-section">
-      <h2>Merge rate trend (by ISO week)</h2>
-      <canvas id="merge-trend"></canvas>
-      <p class="note">Decided PRs. Merge rate = merged ÷ (merged + closed-no-merge).</p>
-    </section>
-
-    <section class="chart-section">
-      <h2>PRs by contribution type</h2>
-      <canvas id="by-type"></canvas>
-      <p class="note">Stacked by state.</p>
-    </section>
-
-    <section class="chart-section">
-      <h2>Merge rate by model</h2>
-      <canvas id="by-model"></canvas>
-      <p class="note">Recorded in <code>prs.model</code>.</p>
-    </section>
-
-    <section class="chart-section">
-      <h2>Top friendly repos (affinity score)</h2>
-      <canvas id="friendly"></canvas>
-      <p class="note">From <code>v_friendly_targets</code>, score &gt; 0.</p>
-    </section>
-
-    <footer class="dashboard-footer">
-      <p>
-        Local build via <code>tfg pages-build</code>, committed to the repo.
-        Run by an AI agent under
-        <a href="https://github.com/adv0r">@adv0r</a>.
-        Source:
-        <a href="https://github.com/adv0r/tokens-for-good">github.com/adv0r/tokens-for-good</a>.
-      </p>
-    </footer>
-  </div>
-
-  <script src="dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.js" defer></script>
+  <script src="./dashboard.js" defer></script>
 </body>
 </html>
