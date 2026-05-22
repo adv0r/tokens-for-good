@@ -1,43 +1,43 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-22T07:34:23Z",
-  "commit_sha": "a875838",
+  "generated_at": "2026-05-22T07:55:51Z",
+  "commit_sha": "5b56efa",
   "kpi": {
-    "total_prs": 86,
-    "merged": 24,
-    "closed_unmerged": 17,
-    "still_open": 45,
+    "total_prs": 87,
+    "merged": 25,
+    "closed_unmerged": 19,
+    "still_open": 43,
     "unique_repos": 43,
-    "helpful_signal_rate": 0.5853658536585366,
-    "helpful_count": 24,
+    "helpful_signal_rate": 0.5681818181818182,
+    "helpful_count": 25,
     "unhelpful_count": 17
   },
   "by_model": [
     {
       "model": "(unknown)",
-      "n": 86,
-      "merged": 24,
-      "n_decided": 41,
-      "thanked": 0
+      "n": 87,
+      "merged": 25,
+      "n_decided": 44,
+      "thanked": 3
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 24,
-      "closed": 17,
-      "open": 27,
+      "merged": 25,
+      "closed": 19,
+      "open": 25,
       "draft": 18
     }
   ],
   "by_org": [
     {
       "org": "eigensource",
-      "n": 17,
-      "merged": 17,
+      "n": 18,
+      "merged": 18,
       "closed": 0,
       "open": 0,
-      "decided": 17,
+      "decided": 18,
       "helpful_rate": 1.0
     },
     {
@@ -116,10 +116,10 @@
       "org": "decidim",
       "n": 3,
       "merged": 0,
-      "closed": 0,
-      "open": 3,
-      "decided": 0,
-      "helpful_rate": null
+      "closed": 2,
+      "open": 1,
+      "decided": 2,
+      "helpful_rate": 0.0
     }
   ],
   "pr_timeline": [
@@ -147,6 +147,11 @@
       "day": "2026-05-21",
       "opened": 20,
       "merged": 2
+    },
+    {
+      "day": "2026-05-22",
+      "opened": 1,
+      "merged": 1
     }
   ],
   "merge_rate_by_week": [
@@ -159,10 +164,10 @@
     },
     {
       "week": "2026-W20",
-      "merged": 20,
-      "decided": 37,
-      "total": 81,
-      "merge_rate": 0.5405405405405406
+      "merged": 21,
+      "decided": 40,
+      "total": 82,
+      "merge_rate": 0.525
     }
   ],
   "top_friendly": [],

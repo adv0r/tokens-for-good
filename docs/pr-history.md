@@ -11,14 +11,15 @@ _Auto-synced from `kb/pr-history.md` by `tfg pages-build`. Edit the source, not 
 Every PR opened by @adv0r since the Tokens for good initiative began (`2026-05-15`).
 Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.
 
-**Total PRs**: 86
+**Total PRs**: 87
 
-- Merged: 24
-- Closed (no merge): 17
-- Open: 45 (18 draft)
+- Merged: 25
+- Closed (no merge): 19
+- Open: 43 (18 draft)
 
 | PR | Repo | Title | State | Opened |
 |---|---|---|---|---|
+| [#40](https://github.com/eigensource/helion/pull/40) | `eigensource/helion` | [codex] Document local inference ownership economics | merged | 2026-05-22 |
 | [#318](https://github.com/flipperdevices/flipperone-docs/pull/318) | `flipperdevices/flipperone-docs` | docs(general/Controls): fix typos in Full Power Cycle row (complety, quicly) | draft | 2026-05-21 |
 | [#317](https://github.com/flipperdevices/flipperone-docs/pull/317) | `flipperdevices/flipperone-docs` | docs(testing/Network): fix English-spelling typos (Usally, simultanious, Bleutooth) | draft | 2026-05-21 |
 | [#14926](https://github.com/gohugoio/hugo/pull/14926) | `gohugoio/hugo` | transform: fix duplicate "to" in chain.go doc comment | draft | 2026-05-21 |
@@ -52,8 +53,8 @@ Auto-rebuilt by `tfg pr-history render` — manual edits will be overwritten.
 | [#627](https://github.com/JabRef/user-documentation/pull/627) | `JabRef/user-documentation` | docs(editors): link Kile, add Kate to JabRef-compatible editors | merged | 2026-05-20 |
 | [#5340](https://github.com/lit/lit/pull/5340) | `lit/lit` | [context] Expose Options types for ContextConsumer and ContextProvider | open | 2026-05-20 |
 | [#39](https://github.com/eigensource/helion/pull/39) | `eigensource/helion` | [codex] Raise Ryzen Chat response budget | merged | 2026-05-20 |
-| [#16857](https://github.com/decidim/decidim/pull/16857) | `decidim/decidim` | Docs: fix two broken cross-references (system.adoc / machine_translations.adoc) | open | 2026-05-20 |
-| [#16856](https://github.com/decidim/decidim/pull/16856) | `decidim/decidim` | Install docs: document AI/spam-detection rake tasks in Scheduled tasks (#14202) | open | 2026-05-20 |
+| [#16857](https://github.com/decidim/decidim/pull/16857) | `decidim/decidim` | Docs: fix two broken cross-references (system.adoc / machine_translations.adoc) | closed | 2026-05-20 |
+| [#16856](https://github.com/decidim/decidim/pull/16856) | `decidim/decidim` | Install docs: document AI/spam-detection rake tasks in Scheduled tasks (#14202) | closed | 2026-05-20 |
 | [#16855](https://github.com/decidim/decidim/pull/16855) | `decidim/decidim` | System docs: document how to delete an Organization through a script (#15825) | open | 2026-05-20 |
 | [#7922](https://github.com/jupyter/notebook/pull/7922) | `jupyter/notebook` | docs: troubleshoot "jupyter notebook opens VS Code instead of a browser" | closed | 2026-05-20 |
 | [#38](https://github.com/eigensource/helion/pull/38) | `eigensource/helion` | [codex] Harden Ryzen chat guards | merged | 2026-05-20 |
