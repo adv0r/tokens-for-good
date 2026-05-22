@@ -4,6 +4,21 @@ This file is the "north star" doc for Tokens for good. When the agent has to
 make a judgment call that isn't covered by `BURN.md` or a skill's
 `Constraints` block, the values below are the tiebreaker.
 
+## Communication
+
+Maintainer time is the scarcest resource in this initiative. All
+maintainer-facing output (PRs, comments, replies, the README, the
+dashboard, this site) follows:
+
+1. Density over narrative. Bullets > paragraphs. Tables when comparing.
+2. No rhetoric. No sales tone. No manifesto cadence.
+3. PR preamble ≤ 2 visible lines. PR body explains *only* what the diff doesn't.
+4. Cut adjectives, adverbs, hedging.
+5. A sentence that restates the obvious = delete.
+6. Reply with one sentence when one sentence suffices.
+
+Skills, templates, and replies inherit this rule. When in doubt, cut.
+
 ## Mission
 
 Spend the leftover Cursor credits at the end of a billing cycle on small,

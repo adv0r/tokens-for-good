@@ -2,6 +2,14 @@
 
 Agent entry point. Read this first every session.
 
+## Voice
+
+All maintainer-facing output (PRs, comments, replies, READMEs, the site)
+inherits the communication rule in
+[`VALUES.md#communication`](./VALUES.md#communication): density over
+narrative, no rhetoric, no sales tone, cut adjectives and hedging, reply
+with one sentence when one sentence suffices. Skills MUST follow it.
+
 ## What this repo is
 
 The operational brain (KB + skills + schema) for an AI agent that spends
