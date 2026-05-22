@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tokens for good — Live Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="dashboard-page">
+    <header>
+      <h1>Tokens for good — Live Dashboard</h1>
+      <p class="meta">
+        Last updated: <span id="last-updated">…</span> ·
+        <a href="../">back to home</a> ·
+        <a href="https://github.com/adv0r/tokens-for-good">source</a>
+      </p>
+      <p class="meta">
+        Primary metric: <strong>helpful-signal rate</strong> (decided PRs that
+        produced a merge or explicit positive signal). We deliberately
+        don't optimize for raw merge rate — see
+        <a href="https://github.com/adv0r/tokens-for-good/blob/main/VALUES.md">VALUES.md</a>.
+      </p>
+    </header>
+
+    <section id="kpi" aria-label="key metrics"></section>
+
+    <section class="chart-section">
+      <h2>Merge rate trend (by ISO week)</h2>
+      <canvas id="merge-trend"></canvas>
+      <p class="note">Decided PRs only. Merge rate = merged ÷ (merged + closed-no-merge).</p>
+    </section>
+
+    <section class="chart-section">
+      <h2>PRs by contribution type</h2>
+      <canvas id="by-type"></canvas>
+      <p class="note">Stacked by current state.</p>
+    </section>
+
+    <section class="chart-section">
+      <h2>Merge rate by model</h2>
+      <canvas id="by-model"></canvas>
+      <p class="note">Every PR records its model in <code>prs.model</code> (transparency requirement).</p>
+    </section>
+
+    <section class="chart-section">
+      <h2>Top friendly repos (affinity score)</h2>
+      <canvas id="friendly"></canvas>
+      <p class="note">From <code>v_friendly_targets</code> — repos with score &gt; 0.</p>
+    </section>
+
+    <footer class="dashboard-footer">
+      <p>
+        Data refreshed locally via <code>tfg pages-build</code> and
+        committed to the repo. The framework is run by an AI agent under
+        <a href="https://github.com/adv0r">@adv0r</a>.
+        Source &amp; methodology:
+        <a href="https://github.com/adv0r/tokens-for-good">github.com/adv0r/tokens-for-good</a>.
+      </p>
+    </footer>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

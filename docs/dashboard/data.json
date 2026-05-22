@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "generated_at": "2026-05-22T06:46:53Z",
+  "kpi": {
+    "total_prs": 86,
+    "merged": 24,
+    "closed_unmerged": 17,
+    "still_open": 45,
+    "unique_repos": 43,
+    "helpful_signal_rate": 0.5853658536585366,
+    "helpful_count": 24,
+    "unhelpful_count": 17
+  },
+  "by_model": [
+    {
+      "model": "(unknown)",
+      "n": 86,
+      "merged": 24,
+      "n_decided": 41,
+      "thanked": 0
+    }
+  ],
+  "by_type": [
+    {
+      "contribution_type": "unknown",
+      "merged": 24,
+      "closed": 17,
+      "open": 27,
+      "draft": 18
+    }
+  ],
+  "merge_rate_by_week": [
+    {
+      "week": "2026-W19",
+      "merged": 4,
+      "decided": 4,
+      "total": 5,
+      "merge_rate": 1.0
+    },
+    {
+      "week": "2026-W20",
+      "merged": 20,
+      "decided": 37,
+      "total": 81,
+      "merge_rate": 0.5405405405405406
+    }
+  ],
+  "top_friendly": [],
+  "emerging_patterns": [],
+  "opt_outs": {
+    "count": 0,
+    "avg_seconds": null,
+    "most_recent": null
+  },
+  "initiative_start": "2026-05-15"
+}

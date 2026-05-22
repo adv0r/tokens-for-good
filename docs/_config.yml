@@ -1,0 +1,9 @@
+title: Tokens for good
+description: Transparent record of AI-agent OSS contributions
+theme: minima
+permalink: pretty
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+url: https://adv0r.github.io
+baseurl: /tokens-for-good

@@ -1,0 +1,31 @@
+name: Update dashboard (placeholder for Phase 2)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+# Phase 1 design note:
+# The dashboard data (docs/dashboard/data.json) is generated locally by
+# `tfg pages-build` against ~/.local/share/tokens-for-good/state.db and
+# committed to the repo. CI does NOT have access to that local SQLite,
+# so this workflow is intentionally a no-op stub until Phase 2 (when
+# `tfg refresh` can run against gh and rebuild stats in CI).
+#
+# Leaving this workflow in place documents the intent and reserves the
+# name `update-pages`. When Phase 2 ships:
+#   - install python + pyyaml
+#   - run `tfg refresh` (using a fine-grained PAT scoped to public repos)
+#   - run `tfg pages-build`
+#   - commit data.json if it changed
+#
+# For now: nothing. The local-driven push from `tfg pages-build` is the
+# update mechanism.
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Document intent
+        run: |
+          echo "Phase 1: data.json is updated locally by 'tfg pages-build'"
+          echo "and committed to the main branch. CI build is intentionally a stub."
