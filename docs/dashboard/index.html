@@ -122,8 +122,9 @@
           <p class="card-sub">top 10 by PR count · bar tint = helpful rate</p>
         </header>
         <div class="card-body chart-shell chart-shell-tall">
-          <canvas id="chart-org" aria-label="Horizontal bar chart: PR count per organization, colored by helpful-signal rate"></canvas>
+          <canvas id="chart-org" aria-label="Horizontal bar chart: PR count per organization, colored by helpful-signal rate. Click a bar to open the org on GitHub. The list below is keyboard-accessible."></canvas>
         </div>
+        <ol class="link-list" id="chart-org-list" aria-label="Organizations, clickable"></ol>
         <table class="sr-only" id="chart-org-table">
           <caption>PRs per organization</caption>
           <thead><tr><th>Org</th><th>PRs</th><th>Helpful rate</th></tr></thead>
@@ -176,6 +177,16 @@
         </table>
       </article>
 
+      <article class="card card-friendly" aria-labelledby="card-friendly-h">
+        <header class="card-head">
+          <h2 id="card-friendly-h" class="card-title">Top friendly repos</h2>
+          <p class="card-sub">where small fixes have landed</p>
+        </header>
+        <div class="card-body">
+          <ol class="link-list link-list-tall" id="chart-friendly-list" aria-label="Repos with highest helpful signal, clickable"></ol>
+        </div>
+      </article>
+
       <article class="card card-optout" aria-labelledby="card-optout-h">
         <header class="card-head">
           <h2 id="card-optout-h" class="card-title">Opt-outs honored</h2>
@@ -188,6 +199,37 @@
       </article>
 
     </section>
+
+    <section class="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">FAQ</h2>
+      <p class="faq-lead">Common questions. <a href="../faq/">Full FAQ →</a></p>
+      <div class="faq-list">
+        <details>
+          <summary>Why am I getting AI-authored PRs?</summary>
+          <p>One developer's experiment: spend leftover Cursor credits on small, low-risk OSS improvements before the billing cycle resets. Each PR is disclosed as AI-authored in its preamble.</p>
+        </details>
+        <details>
+          <summary>How do I stop receiving them?</summary>
+          <p>Leave a one-line comment on any PR: "this kind of PR isn't welcome here". The agent will apologize, auto-close the PR, and permanently blacklist the repo. Silent close works too. Full instructions in <a href="https://github.com/adv0r/tokens-for-good/blob/main/MAINTAINER_REMOVAL.md">MAINTAINER_REMOVAL</a>.</p>
+        </details>
+        <details>
+          <summary>Are these PRs human-reviewed before opening?</summary>
+          <p>No. The preamble is explicit: unattended, AI-authored, narrowly scoped. The agent operates from a tight ruleset and a blacklist learned from past rejections.</p>
+        </details>
+        <details>
+          <summary>What model wrote this PR?</summary>
+          <p>Specified in each PR preamble. The "By model" chart above shows the breakdown across all opened PRs.</p>
+        </details>
+        <details>
+          <summary>Will the agent keep editing my PR after I ask it to stop?</summary>
+          <p>No. Opt-out triggers auto-apology + auto-close + permanent blacklist. No further activity on the repo from this initiative.</p>
+        </details>
+        <details>
+          <summary>Is this monetized?</summary>
+          <p>No. It burns prepaid Cursor tokens before the billing cycle resets. Long-term plan: solar-powered local inference rig for benevolent OSS work — see <a href="https://github.com/adv0r/tokens-for-good/blob/main/ROADMAP.md">ROADMAP</a>.</p>
+        </details>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -199,7 +241,7 @@
         <span aria-hidden="true">·</span>
         <a href="https://github.com/adv0r/tokens-for-good/blob/main/ROADMAP.md">ROADMAP</a>
         <span aria-hidden="true">·</span>
-        <a href="../faq/">FAQ</a>
+        <a href="../faq.html">FAQ</a>
       </p>
       <p class="footer-meta">
         Built by <a href="https://github.com/adv0r/tokens-for-good">tokens-for-good</a>

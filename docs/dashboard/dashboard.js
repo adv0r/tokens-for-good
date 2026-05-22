@@ -149,6 +149,49 @@
     ).join('');
   }
 
+  // ---- visible clickable link list (primary a11y; visible to all users) -
+
+  /**
+   * Fill a <ul>/<ol> with rows of clickable links + optional meta text.
+   * Each row is rendered with textContent (defense against funky data);
+   * the href is built via encodeURI to keep slashes intact in owner/name.
+   * @param {string} elId
+   * @param {Array} rows
+   * @param {(row: any) => {href: string, label: string, meta?: string}} mapFn
+   */
+  function fillLinkList(elId, rows, mapFn) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = '';
+    for (const row of rows) {
+      const item = mapFn(row);
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = item.href;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = item.label;
+      li.appendChild(a);
+      if (item.meta) {
+        const span = document.createElement('span');
+        span.className = 'meta';
+        span.textContent = ' · ' + item.meta;
+        li.appendChild(span);
+      }
+      el.appendChild(li);
+    }
+  }
+
+  function showEmptyList(elId, msg) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = '';
+    const li = document.createElement('li');
+    li.className = 'empty';
+    li.textContent = msg;
+    el.appendChild(li);
+  }
+
   // ---- shared chart options --------------------------------------------
 
   function commonChartOpts(p) {
@@ -275,6 +318,11 @@
     if (!ctx) return;
     const rows = (data.by_org || []).slice(0, 10);
     fillTable('chart-org-table', rows.map(r => [r.org, fmtNum(r.n), fmtPct(r.helpful_rate)]));
+    fillLinkList('chart-org-list', rows, (r) => ({
+      href: 'https://github.com/' + encodeURIComponent(r.org),
+      label: r.org,
+      meta: `${fmtNum(r.n)} PRs · ${fmtPct(r.helpful_rate)}`,
+    }));
     if (rows.length === 0) { showEmpty(ctx, 'No org breakdown yet.'); return; }
 
     const p = palette();
@@ -295,6 +343,22 @@
       options: {
         ...commonChartOpts(p),
         indexAxis: 'y',
+        onClick: (evt, elements) => {
+          if (!elements.length) return;
+          const idx = elements[0].index;
+          const org = rows[idx] && rows[idx].org;
+          if (org) {
+            window.open(
+              'https://github.com/' + encodeURIComponent(org),
+              '_blank',
+              'noopener,noreferrer'
+            );
+          }
+        },
+        onHover: (evt, elements) => {
+          const t = evt && evt.native && evt.native.target;
+          if (t && t.style) t.style.cursor = elements.length ? 'pointer' : 'default';
+        },
         plugins: {
           ...commonChartOpts(p).plugins,
           legend: { display: false },
@@ -304,7 +368,7 @@
               label: (ctx) => {
                 const r = rows[ctx.dataIndex];
                 const rate = fmtPct(r.helpful_rate);
-                return [` PRs: ${fmtNum(r.n)}`, ` Helpful rate: ${rate}`, ` Merged: ${fmtNum(r.merged)} · Open: ${fmtNum(r.open)}`];
+                return [` PRs: ${fmtNum(r.n)}`, ` Helpful rate: ${rate}`, ` Merged: ${fmtNum(r.merged)} · Open: ${fmtNum(r.open)}`, ' (click to open on GitHub)'];
               },
             },
           },
@@ -496,13 +560,41 @@
     const numEl = document.getElementById('optout-num');
     const noteEl = document.getElementById('optout-note');
     countUp(numEl, oo.count || 0, fmtNum);
+    noteEl.innerHTML = '';
     if ((oo.count || 0) === 0) {
-      noteEl.textContent = 'None yet — the opt-out path exists if needed.';
-    } else {
-      const last = oo.most_recent && oo.most_recent.repo
-        ? ` Most recent: ${oo.most_recent.repo}.` : '';
-      noteEl.textContent = `Maintainers who asked us to stop; we did, immediately.${last}`;
+      noteEl.appendChild(document.createTextNode('None yet — the opt-out path exists if needed.'));
+      return;
     }
+    noteEl.appendChild(document.createTextNode('Maintainers who asked us to stop; we did, immediately.'));
+    const repo = oo.most_recent && oo.most_recent.repo;
+    if (repo) {
+      noteEl.appendChild(document.createTextNode(' Most recent: '));
+      const a = document.createElement('a');
+      a.href = 'https://github.com/' + encodeURI(repo);
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = repo;
+      noteEl.appendChild(a);
+      noteEl.appendChild(document.createTextNode('.'));
+    }
+  }
+
+  // ---- top-friendly repos card (link list; empty state until populated) -
+
+  function renderTopFriendly(data) {
+    const rows = (data.top_friendly || []).slice(0, 10);
+    if (rows.length === 0) {
+      showEmptyList(
+        'chart-friendly-list',
+        'Repo affinity emerges as the agent runs more rounds. Currently silent.'
+      );
+      return;
+    }
+    fillLinkList('chart-friendly-list', rows, (r) => ({
+      href: 'https://github.com/' + encodeURI(r.repo),
+      label: r.repo,
+      meta: `${fmtNum(r.merged || 0)} merged · ${fmtPct(r.helpful_rate)}`,
+    }));
   }
 
   // ---- empty state helper ----------------------------------------------
@@ -599,10 +691,11 @@
 
     // Below the fold: lazy-render as user scrolls
     lazyRender([
-      { id: 'time',  selector: '.card-time',   fn: () => chartTime(data) },
-      { id: 'type',  selector: '.card-type',   fn: () => chartType(data) },
-      { id: 'model', selector: '.card-model',  fn: () => chartModel(data) },
-      { id: 'oo',    selector: '.card-optout', fn: () => renderOptouts(data) },
+      { id: 'time',     selector: '.card-time',     fn: () => chartTime(data) },
+      { id: 'type',     selector: '.card-type',     fn: () => chartType(data) },
+      { id: 'model',    selector: '.card-model',    fn: () => chartModel(data) },
+      { id: 'friendly', selector: '.card-friendly', fn: () => renderTopFriendly(data) },
+      { id: 'oo',       selector: '.card-optout',   fn: () => renderOptouts(data) },
     ]);
   }
 

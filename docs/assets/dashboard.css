@@ -494,3 +494,131 @@ button {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* --- link list (clickable orgs / repos under charts) ----------------- */
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  max-height: 14rem;
+  overflow-y: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-feature-settings: "tnum" 1;
+}
+.link-list-tall { max-height: 20rem; }
+
+.link-list li {
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.link-list li:last-child { border-bottom: 0; }
+
+.link-list a {
+  color: var(--accent);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.link-list a:hover,
+.link-list a:focus-visible { text-decoration: underline; }
+
+.link-list .meta {
+  color: var(--text-mut);
+  font-variant-numeric: tabular-nums;
+}
+
+.link-list li.empty {
+  border-bottom: 0;
+  color: var(--text-mut);
+  font-style: italic;
+  white-space: normal;
+}
+
+.empty {
+  color: var(--text-mut);
+  font-size: 0.875rem;
+  margin: 0.75rem 0 0;
+}
+
+/* --- FAQ accordion --------------------------------------------------- */
+
+.faq {
+  margin: 2.5rem 0 0;
+  padding: 1.75rem 0 0;
+  border-top: 1px solid var(--border);
+}
+.faq h2 {
+  font-size: 1.25rem;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.01em;
+}
+.faq-lead {
+  color: var(--text-mut);
+  font-size: 0.875rem;
+  margin: 0 0 1rem;
+}
+.faq-lead a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.faq-lead a:hover,
+.faq-lead a:focus-visible { text-decoration: underline; }
+
+.faq-list { display: grid; gap: 0.5rem; }
+
+.faq-list details {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 0.95rem;
+  background: var(--bg-elev);
+  transition: border-color 0.15s ease;
+}
+.faq-list details[open] { border-color: var(--accent); }
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text);
+}
+.faq-list summary::after {
+  content: "+";
+  color: var(--text-mut);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 200ms ease;
+}
+.faq-list details[open] summary::after { content: "−"; }
+.faq-list summary::-webkit-details-marker { display: none; }
+
+.faq-list details p {
+  margin: 0.6rem 0 0;
+  color: var(--text-mut);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.faq-list details a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.faq-list details a:hover,
+.faq-list details a:focus-visible { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-list summary::after,
+  .faq-list details { transition: none; }
+}
