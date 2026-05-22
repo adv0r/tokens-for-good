@@ -89,6 +89,21 @@ preserved verbatim; only the body is replaced. The targets are tracked
 in git (Pages needs them to build), but you should never hand-edit them
 — change the kb source and re-run `tfg pages-build`.
 
+### Excluding private orgs
+
+Public dashboard surfaces hide PRs whose owner is in the exclusion set
+(default: `eigensource`). Defense-in-depth:
+
+- `gh search prs` is invoked with `is:public`, so private-repo PRs never
+  enter `state.db`.
+- Every public SELECT splices `_excluded_sql_clause()` into its WHERE; the
+  view definitions in `schema/state.sql` are untouched.
+
+Add more via `~/.local/share/tokens-for-good/user-state.json`:
+`{"excluded_owners": ["myprivateorg"]}`. Already-ingested rows need a
+one-shot `DELETE FROM prs WHERE LOWER(repo) LIKE 'owner/%'`; future
+refreshes filter at ingestion.
+
 ### Why the dashboard is built locally (Phase 1)
 
 The interactive dashboard under `docs/dashboard/` reads
