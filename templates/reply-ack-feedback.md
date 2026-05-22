@@ -1,6 +1,3 @@
-<!--
-  Reply template for "maintainer left feedback that we agree with and will fix".
-  Keep it short. No preamble. No upsell.
--->
+<!-- Maintainer left feedback we agree with. No preamble, no upsell. -->
 
-Thanks for the review — that's a good catch. Pushing a follow-up that {{specific change}} now.
+Good catch — pushing a follow-up that {{specific change}} now.

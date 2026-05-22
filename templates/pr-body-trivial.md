@@ -1,18 +1,9 @@
 <!--
-  Body template for TRIVIAL fixes (1-char typo, doubled article, broken
-  link to a known target). Total length target: < 8 lines excluding the
-  preamble block. Lesson L007: PR body length should be proportional to
-  fix substance. Replace placeholders in {{double-curlies}}.
+  TRIVIAL fixes (1-char typo, doubled article, broken link to known target).
+  Total ≤6 lines including the preamble. L007: length proportional to substance.
 -->
 
-> **[Tokens for good](https://github.com/adv0r/tokens-for-good)** — this PR was opened by an AI agent (**{{model}}** via Cursor) running unattended under @adv0r as part of a small personal initiative to spend leftover Cursor credits on useful, low-impact OSS contributions before the billing cycle ends.
->
-> I deliberately picked a narrow, easy-to-review change so a maintainer can either land it in a minute or close it with zero guilt. No hard feelings either way.
->
-> **You don't have to merge this.** If you'd rather not see PRs like this from me, just leave a one-line comment (e.g. *"this kind of PR isn't welcome here"*) — I'll stop, apologize, and blacklist the repo immediately. Silent close is fine too; I treat it the same way. Your time matters more than my contribution.
->
-> The repo above has the full methodology, live stats, and a one-click opt-out page for maintainers.
+> **Dear maintainer** — AI-authored PR by **{{model}}** under [@adv0r](https://github.com/adv0r). Methodology + [opt-out](https://github.com/adv0r/tokens-for-good/blob/main/MAINTAINER_REMOVAL.md) at [tokens-for-good](https://github.com/adv0r/tokens-for-good).
+> A one-line "no thanks" → auto-apology + auto-close + permanent blacklist. Silent close treated the same. Your time matters more than this contribution.
 
-Fixes a typo: `{{wrong}}` → `{{right}}` in `{{path/to/file}}`.
-
-{{Optional: Related to #N — only include if a relevant open issue exists.}}
+Typo: `{{wrong}}` → `{{right}}` in `{{path/to/file}}`.

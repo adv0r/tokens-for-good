@@ -1,6 +1,3 @@
-<!--
-  Reply template for "PR was merged". Optional — silence is also fine.
-  Use only if the maintainer added a comment we want to acknowledge.
--->
+<!-- PR was merged. Optional — silence is also fine. Use only if maintainer commented. -->
 
-Thanks for taking the time to review and merge.
+Thanks for the review and merge.

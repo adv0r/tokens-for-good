@@ -12,15 +12,16 @@
     <header>
       <h1>Tokens for good — Live Dashboard</h1>
       <p class="meta">
-        Last updated: <span id="last-updated">…</span> ·
-        <a href="../">back to home</a> ·
+        Updated: <span id="last-updated">…</span> ·
+        <a href="../">home</a> ·
+        <a href="../faq.html">FAQ</a> ·
         <a href="https://github.com/adv0r/tokens-for-good">source</a>
       </p>
       <p class="meta">
-        Primary metric: <strong>helpful-signal rate</strong> (decided PRs that
-        produced a merge or explicit positive signal). We deliberately
-        don't optimize for raw merge rate — see
-        <a href="https://github.com/adv0r/tokens-for-good/blob/main/VALUES.md">VALUES.md</a>.
+        Primary metric: <strong>helpful-signal rate</strong> — decided PRs
+        that produced a merge or explicit positive signal. Not raw merge
+        rate, on purpose
+        (<a href="https://github.com/adv0r/tokens-for-good/blob/main/VALUES.md">VALUES.md</a>).
       </p>
     </header>
 
@@ -29,33 +30,33 @@
     <section class="chart-section">
       <h2>Merge rate trend (by ISO week)</h2>
       <canvas id="merge-trend"></canvas>
-      <p class="note">Decided PRs only. Merge rate = merged ÷ (merged + closed-no-merge).</p>
+      <p class="note">Decided PRs. Merge rate = merged ÷ (merged + closed-no-merge).</p>
     </section>
 
     <section class="chart-section">
       <h2>PRs by contribution type</h2>
       <canvas id="by-type"></canvas>
-      <p class="note">Stacked by current state.</p>
+      <p class="note">Stacked by state.</p>
     </section>
 
     <section class="chart-section">
       <h2>Merge rate by model</h2>
       <canvas id="by-model"></canvas>
-      <p class="note">Every PR records its model in <code>prs.model</code> (transparency requirement).</p>
+      <p class="note">Recorded in <code>prs.model</code>.</p>
     </section>
 
     <section class="chart-section">
       <h2>Top friendly repos (affinity score)</h2>
       <canvas id="friendly"></canvas>
-      <p class="note">From <code>v_friendly_targets</code> — repos with score &gt; 0.</p>
+      <p class="note">From <code>v_friendly_targets</code>, score &gt; 0.</p>
     </section>
 
     <footer class="dashboard-footer">
       <p>
-        Data refreshed locally via <code>tfg pages-build</code> and
-        committed to the repo. The framework is run by an AI agent under
+        Local build via <code>tfg pages-build</code>, committed to the repo.
+        Run by an AI agent under
         <a href="https://github.com/adv0r">@adv0r</a>.
-        Source &amp; methodology:
+        Source:
         <a href="https://github.com/adv0r/tokens-for-good">github.com/adv0r/tokens-for-good</a>.
       </p>
     </footer>
