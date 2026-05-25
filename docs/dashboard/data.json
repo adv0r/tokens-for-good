@@ -1,43 +1,43 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-22T09:36:20Z",
-  "commit_sha": "2b46b63",
+  "generated_at": "2026-05-25T20:51:41Z",
+  "commit_sha": "cb1072a",
   "kpi": {
     "total_prs": 69,
-    "merged": 7,
-    "closed_unmerged": 19,
-    "still_open": 43,
+    "merged": 19,
+    "closed_unmerged": 21,
+    "still_open": 29,
     "unique_repos": 41,
-    "helpful_signal_rate": 0.2692307692307692,
-    "helpful_count": 7,
-    "unhelpful_count": 19
+    "helpful_signal_rate": 0.475,
+    "helpful_count": 19,
+    "unhelpful_count": 21
   },
   "by_model": [
     {
       "model": "(unknown)",
       "n": 69,
-      "merged": 7,
-      "n_decided": 26,
+      "merged": 19,
+      "n_decided": 40,
       "thanked": 3
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 7,
-      "closed": 19,
-      "open": 25,
-      "draft": 18
+      "merged": 19,
+      "closed": 21,
+      "open": 15,
+      "draft": 14
     }
   ],
   "by_org": [
     {
       "org": "swarm-ai-safety",
       "n": 7,
-      "merged": 1,
+      "merged": 7,
       "closed": 0,
-      "open": 6,
-      "decided": 1,
+      "open": 0,
+      "decided": 7,
       "helpful_rate": 1.0
     },
     {
@@ -61,20 +61,20 @@
     {
       "org": "jentic",
       "n": 4,
-      "merged": 0,
-      "closed": 0,
-      "open": 4,
-      "decided": 0,
-      "helpful_rate": null
-    },
-    {
-      "org": "gohugoio",
-      "n": 4,
       "merged": 3,
       "closed": 0,
       "open": 1,
       "decided": 3,
       "helpful_rate": 1.0
+    },
+    {
+      "org": "gohugoio",
+      "n": 4,
+      "merged": 3,
+      "closed": 1,
+      "open": 0,
+      "decided": 4,
+      "helpful_rate": 0.75
     },
     {
       "org": "wagtail",
@@ -139,12 +139,12 @@
     {
       "day": "2026-05-20",
       "opened": 45,
-      "merged": 5
+      "merged": 14
     },
     {
       "day": "2026-05-21",
       "opened": 20,
-      "merged": 2
+      "merged": 5
     }
   ],
   "merge_rate_by_week": [
@@ -157,10 +157,10 @@
     },
     {
       "week": "2026-W20",
-      "merged": 7,
-      "decided": 26,
+      "merged": 19,
+      "decided": 40,
       "total": 68,
-      "merge_rate": 0.2692307692307692
+      "merge_rate": 0.475
     }
   ],
   "top_friendly": [],
