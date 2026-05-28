@@ -175,3 +175,34 @@ lessons:
     rule: |
       Every codespell hit needs manual verification. Never blindly apply
       `--write-changes`.
+
+  - id: L010
+    title: golang/go is not a cold tier-1 typo target
+    body: |
+      golang/go routes GitHub PRs through Gerrit (Gopherbot). Review happens on
+      go-review.googlesource.com, not on GitHub comments. Commit titles must use
+      package paths (e.g. `doc/godebug:` not `doc:`). The first PR comment becomes
+      the Gerrit commit body — tokens-for-good preamble + opt-out boilerplate is
+      the wrong shape for golang's template.
+
+      Composer PR golang/go#79723 (doubled-article fix in doc/godebug.md) was
+      still OPEN with zero maintainer comments at 2026-05-28 triage. Duplicate
+      #79724 was closed by @adv0r, not a maintainer. No maintainer rejection
+      quote exists yet on #79723 — this lesson is policy-driven until outcome
+      is known.
+    status: candidate
+    confidence: LOW
+    citation_count: 0
+    created_at: 2026-05-28
+    retired_at: null
+    retired_reason: null
+    sources:
+      - "go.dev/doc/contribute — issue linking + Gerrit review process"
+      - "gopherbot on golang/go#79036 — Gerrit import message"
+      - "Composer PR golang/go#79723 (open, no maintainer reply)"
+      - "adv0r close comment on golang/go#79724 (duplicate, not rejection)"
+    rule: |
+      Do not cold-open tier-1 typo/broken-link PRs against golang/go. Skip in
+      tb-discover. If a golang fix is ever attempted: strip tokens-for-good
+      preamble from the Gerrit commit body, use package-scoped title, follow
+      go.dev/wiki/CommitMessage, expect Gerrit not GitHub replies.

@@ -26,6 +26,7 @@ All quotes are verbatim from public PR threads.
 | `pallets/*` | 2026-05-21 | maintainer-F | silent | _(silent)_ | 9999d |
 | `pre-commit/pre-commit` | 2026-05-21 | maintainer-G | silent | _(silent)_ | 9999d |
 | `godotengine/godot-docs` | 2026-05-21 | — | silent | _(silent)_ | 9999d |
+| `astropy/astropy` | 2026-05-28 | maintainer-J | explicit | "We discussed this PR more broadly on Slack and agreed it shouldn't have been merged as it doesn't meet our requirements for contributions. In particular, we explicitly require - Human ownership and accountability - Authentic engagement none of which are found here." | 9999d |
 
 ## Blacklist (SOFT)
 
@@ -38,7 +39,6 @@ All quotes are verbatim from public PR threads.
 
 | Repo / Org | Date | Maintainer | Signal | Quote | Cooldown |
 |---|---|---|---|---|---|
-| `astropy/astropy` | 2026-05-21 | maintainer-I | explicit | _(silent)_ | 7d |
 | `gohugoio/hugoDocs` | 2026-05-20 | maintainer-H | explicit | _(silent)_ | 7d |
 | `ratatui/ratatui` | 2026-05-21 | — | explicit | _(silent)_ | 7d |
 | `JabRef/user-documentation` | 2026-05-21 | — | explicit | _(silent)_ | 7d |
@@ -49,4 +49,5 @@ All quotes are verbatim from public PR threads.
 | Repo / Org | Date | Maintainer | Signal | Quote | Cooldown |
 |---|---|---|---|---|---|
 | `denoland/deno` | 2026-05-22 | — | policy | _(silent)_ | 9999d |
+| `golang/go` | 2026-05-28 | — | policy | "Don't comment on this PR. All discussion takes place in Gerrit." | 9999d |
 

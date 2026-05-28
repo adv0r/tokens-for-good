@@ -1,33 +1,33 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-28T17:02:30Z",
-  "commit_sha": "5b6158e",
+  "generated_at": "2026-05-28T17:57:13Z",
+  "commit_sha": "d4fdd15",
   "kpi": {
-    "total_prs": 69,
-    "merged": 19,
-    "closed_unmerged": 21,
-    "still_open": 29,
-    "unique_repos": 41,
-    "helpful_signal_rate": 0.475,
-    "helpful_count": 19,
-    "unhelpful_count": 21
+    "total_prs": 80,
+    "merged": 21,
+    "closed_unmerged": 23,
+    "still_open": 36,
+    "unique_repos": 43,
+    "helpful_signal_rate": 0.4772727272727273,
+    "helpful_count": 21,
+    "unhelpful_count": 23
   },
   "by_model": [
     {
       "model": "(unknown)",
-      "n": 69,
-      "merged": 19,
-      "n_decided": 40,
+      "n": 80,
+      "merged": 21,
+      "n_decided": 44,
       "thanked": 0
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 19,
-      "closed": 21,
-      "open": 17,
-      "draft": 12
+      "merged": 21,
+      "closed": 23,
+      "open": 25,
+      "draft": 11
     }
   ],
   "by_org": [
@@ -39,6 +39,15 @@
       "open": 0,
       "decided": 7,
       "helpful_rate": 1.0
+    },
+    {
+      "org": "gohugoio",
+      "n": 6,
+      "merged": 3,
+      "closed": 2,
+      "open": 1,
+      "decided": 5,
+      "helpful_rate": 0.6
     },
     {
       "org": "the-turing-way",
@@ -68,15 +77,6 @@
       "helpful_rate": 1.0
     },
     {
-      "org": "gohugoio",
-      "n": 4,
-      "merged": 3,
-      "closed": 1,
-      "open": 0,
-      "decided": 4,
-      "helpful_rate": 0.75
-    },
-    {
       "org": "wagtail",
       "n": 3,
       "merged": 0,
@@ -84,6 +84,15 @@
       "open": 0,
       "decided": 3,
       "helpful_rate": 0.0
+    },
+    {
+      "org": "ratatui",
+      "n": 3,
+      "merged": 1,
+      "closed": 0,
+      "open": 2,
+      "decided": 1,
+      "helpful_rate": 1.0
     },
     {
       "org": "pymc-devs",
@@ -111,20 +120,11 @@
       "open": 1,
       "decided": 2,
       "helpful_rate": 0.0
-    },
-    {
-      "org": "Comfy-Org",
-      "n": 3,
-      "merged": 0,
-      "closed": 0,
-      "open": 3,
-      "decided": 0,
-      "helpful_rate": null
     }
   ],
-  "by_org_other_count": 31,
-  "by_org_other_orgs": 28,
-  "by_org_total_orgs": 38,
+  "by_org_other_count": 40,
+  "by_org_other_orgs": 30,
+  "by_org_total_orgs": 40,
   "pr_timeline": [
     {
       "day": "2026-05-15",
@@ -145,6 +145,11 @@
       "day": "2026-05-21",
       "opened": 20,
       "merged": 5
+    },
+    {
+      "day": "2026-05-28",
+      "opened": 11,
+      "merged": 2
     }
   ],
   "merge_rate_by_week": [
@@ -161,6 +166,13 @@
       "decided": 40,
       "total": 68,
       "merge_rate": 0.475
+    },
+    {
+      "week": "2026-W21",
+      "merged": 2,
+      "decided": 4,
+      "total": 11,
+      "merge_rate": 0.5
     }
   ],
   "top_friendly": [],

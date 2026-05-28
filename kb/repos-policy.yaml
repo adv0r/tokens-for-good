@@ -193,3 +193,19 @@ policies:
     pr_link: null
     cooldown_days: 9999
     notes: explicit anti-AI gating in PR template (do-not-try)
+
+  - repo: golang/go
+    category: untested
+    severity: HARD
+    signal_type: policy
+    date: 2026-05-28
+    maintainer_id: null
+    quote: "Don't comment on this PR. All discussion takes place in Gerrit."
+    pr_link: https://github.com/golang/go/pull/79723
+    cooldown_days: 9999
+    notes: |
+      Gerrit-centric workflow (go.dev/doc/contribute). Cold tier-1 typo PRs
+      from tokens-for-good are a poor fit: package-scoped commit title required,
+      76-col commit body, no Markdown in commit message, discussion on Gerrit not
+      GitHub. Composer PR #79723 (2026-05-28) still open at triage — do-not-retry
+      tier-1 typo until outcome known.
