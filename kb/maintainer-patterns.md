@@ -18,16 +18,16 @@ We do not include emails or DMs even if shared publicly.
 
 ### maintainer-I (Astropy)
 
-- **Style**: explicit AI-friendly stance on doc/typo PRs.
+- **Style**: explicit AI-friendly stance on doc/typo PRs in isolation.
 - **Score**: merged our `astropy/astropy#19787` typo fix.
-- **Verdict**: AI-friendly. Single trivial fix per round still recommended.
+- **Verdict**: do not extrapolate — team reversed the merge decision on Slack.
 
 ### maintainer-J (Astropy)
 
-- **Style**: values pushback on AI for triviality even within an
-  AI-friendly org. Respects substance over noise.
-- **Verdict**: AI-tolerant but allergic to bulk. One thoughtful fix per
-  round.
+- **Style**: values human ownership and authentic engagement over trivial
+  AI-assisted diffs.
+- **Quote**: "We discussed this PR more broadly on Slack and agreed it shouldn't have been merged as it doesn't meet our requirements for contributions."
+- **Verdict**: HARD blacklist for `astropy/astropy`. Do not retry.
 
 ### maintainer-K (MDN docs)
 

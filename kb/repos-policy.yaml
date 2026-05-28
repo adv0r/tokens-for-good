@@ -8,7 +8,7 @@
 # Severity: HARD = never again | SOFT = pause N days | CONDITIONAL = certain types only
 
 version: 1
-last_updated: 2026-05-22
+last_updated: 2026-05-28
 
 policies:
   # ---- Blacklist (HARD) ------------------------------------------------------
@@ -128,15 +128,15 @@ policies:
   # ---- Friendly --------------------------------------------------------------
 
   - repo: astropy/astropy
-    category: friendly
-    severity: null
+    category: blacklist
+    severity: HARD
     signal_type: explicit
-    date: 2026-05-21
-    maintainer_id: maintainer-I
-    quote: null
+    date: 2026-05-28
+    maintainer_id: maintainer-J
+    quote: "We discussed this PR more broadly on Slack and agreed it shouldn't have been merged as it doesn't meet our requirements for contributions. In particular, we explicitly require - Human ownership and accountability - Authentic engagement none of which are found here."
     pr_link: https://github.com/astropy/astropy/pull/19787
-    cooldown_days: 7
-    notes: explicit AI-friendly stance; surgical doc/typo fixes welcome
+    cooldown_days: 9999
+    notes: post-merge maintainer reversal; pllim merged but team rejected on Slack
 
   - repo: gohugoio/hugoDocs
     category: friendly

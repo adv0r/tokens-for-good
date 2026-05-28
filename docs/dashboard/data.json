@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-25T20:51:41Z",
-  "commit_sha": "cb1072a",
+  "generated_at": "2026-05-28T17:02:27Z",
+  "commit_sha": "971919d",
   "kpi": {
     "total_prs": 69,
     "merged": 19,
@@ -18,7 +18,7 @@
       "n": 69,
       "merged": 19,
       "n_decided": 40,
-      "thanked": 3
+      "thanked": 0
     }
   ],
   "by_type": [
@@ -26,8 +26,8 @@
       "contribution_type": "unknown",
       "merged": 19,
       "closed": 21,
-      "open": 15,
-      "draft": 14
+      "open": 17,
+      "draft": 12
     }
   ],
   "by_org": [
