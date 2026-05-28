@@ -409,7 +409,54 @@ button {
   margin-top: 0.15rem;
 }
 
-/* opt-outs card */
+/* opt-outs / stop-honored card */
+.card-title .info-tip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-mut);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: help;
+  vertical-align: middle;
+  position: relative;
+}
+.card-title .info-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.55rem);
+  transform: translateX(-50%);
+  width: min(22rem, 70vw);
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 20;
+}
+.card-title .info-tip:hover::after,
+.card-title .info-tip:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .optout-num {
   margin: 0;
   font-size: clamp(56px, 9vw, 84px);

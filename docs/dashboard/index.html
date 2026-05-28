@@ -189,8 +189,16 @@
 
       <article class="card card-optout" aria-labelledby="card-optout-h">
         <header class="card-head">
-          <h2 id="card-optout-h" class="card-title">Opt-outs honored</h2>
-          <p class="card-sub">maintainer requests to stop</p>
+          <h2 id="card-optout-h" class="card-title">
+            Stop honored
+            <span
+              class="info-tip"
+              tabindex="0"
+              role="note"
+              aria-label="How stop honored is counted"
+              data-tip="Automatic opt-outs: maintainer asks to stop on a PR thread → we apologize, close, and blacklist within 24h. Policy blacklists: repos we no longer PR after explicit rejection, silent close, or do-not-try rules in kb/repos-policy.yaml. The number is both combined.">ⓘ</span>
+          </h2>
+          <p class="card-sub">auto opt-outs + policy blacklists</p>
         </header>
         <div class="card-body card-body-center">
           <p class="optout-num" id="optout-num" data-target="0">—</p>

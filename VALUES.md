@@ -104,9 +104,12 @@ honoring it within 24h:
   BDFL.
 - Cooldown set to effectively forever (9999 days).
 
-The "Explicit opt-outs honored" counter in the dashboard tracks
-compliance publicly — if that number doesn't match reality, that's a
-bug to report via [`MAINTAINER_REMOVAL.md`](./MAINTAINER_REMOVAL.md).
+The "Stop honored" counter in the dashboard tracks
+compliance publicly — **automatic opt-outs** (maintainer says stop on a PR
+thread; we apologize and close within 24h) plus **policy blacklists**
+(repos we no longer PR after explicit rejection, silent close, or
+do-not-try rules in `kb/repos-policy.yaml`). If that number doesn't match
+reality, that's a bug to report via [`MAINTAINER_REMOVAL.md`](./MAINTAINER_REMOVAL.md).
 
 ## Why solar + local inference (the bigger goal)
 

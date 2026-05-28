@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-28T17:57:13Z",
+  "generated_at": "2026-05-28T20:30:00Z",
   "commit_sha": "d4fdd15",
   "kpi": {
     "total_prs": 80,
@@ -178,7 +178,13 @@
   "top_friendly": [],
   "emerging_patterns": [],
   "opt_outs": {
-    "count": 0,
+    "count": 11,
+    "explicit_optout_count": 0,
+    "blacklist_policy_count": 11,
+    "blacklist_by_signal_type": {
+      "explicit": 4,
+      "silent": 7
+    },
     "avg_seconds": null,
     "most_recent": null
   },

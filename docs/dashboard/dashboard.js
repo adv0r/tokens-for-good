@@ -605,18 +605,28 @@
 
   function renderOptouts(data) {
     const oo = data.opt_outs || { count: 0 };
+    const explicit = oo.explicit_optout_count ?? 0;
+    const blacklist = oo.blacklist_policy_count ?? 0;
+    const total = oo.count ?? (explicit + blacklist);
     const numEl = document.getElementById('optout-num');
     const noteEl = document.getElementById('optout-note');
-    countUp(numEl, oo.count || 0, fmtNum);
+    countUp(numEl, total, fmtNum);
     noteEl.innerHTML = '';
-    if ((oo.count || 0) === 0) {
+    if (total === 0) {
       noteEl.appendChild(document.createTextNode('None yet — the opt-out path exists if needed.'));
       return;
     }
-    noteEl.appendChild(document.createTextNode('Maintainers who asked us to stop; we did, immediately.'));
+    const parts = [];
+    if (explicit > 0) {
+      parts.push(explicit + ' automatic opt-out' + (explicit === 1 ? '' : 's'));
+    }
+    if (blacklist > 0) {
+      parts.push(blacklist + ' policy blacklist' + (blacklist === 1 ? '' : 's'));
+    }
+    noteEl.appendChild(document.createTextNode(parts.join(' · ') + '.'));
     const repo = oo.most_recent && oo.most_recent.repo;
-    if (repo) {
-      noteEl.appendChild(document.createTextNode(' Most recent: '));
+    if (repo && explicit > 0) {
+      noteEl.appendChild(document.createTextNode(' Most recent opt-out: '));
       const a = document.createElement('a');
       a.href = 'https://github.com/' + encodeURI(repo);
       a.target = '_blank';

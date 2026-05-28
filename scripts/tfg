@@ -412,39 +412,62 @@ def _model_breakdown(conn):
     return out
 
 
+def _blacklist_policy_stats() -> dict:
+    """Count blacklist rows in kb/repos-policy.yaml (public, committed policy)."""
+    policies = _load_policy()
+    blacklists = [p for p in policies if p.get("category") == "blacklist"]
+    by_signal: dict[str, int] = {}
+    for p in blacklists:
+        st = p.get("signal_type") or "unknown"
+        by_signal[st] = by_signal.get(st, 0) + 1
+    return {
+        "count": len(blacklists),
+        "by_signal_type": by_signal,
+    }
+
+
 def _optouts_stats(conn):
-    """Count explicit opt-outs honored and time-to-honor in seconds."""
+    """Explicit opt-out events + policy blacklists (repos we no longer PR)."""
+    explicit_count = 0
+    avg = None
+    most_recent = None
     try:
         rows = conn.execute(
             "SELECT ts, payload_json FROM events WHERE kind = 'explicit_optout' "
             "ORDER BY ts DESC"
         ).fetchall()
     except sqlite3.OperationalError:
-        return {"count": 0, "avg_seconds": None, "most_recent": None}
-    if not rows:
-        return {"count": 0, "avg_seconds": None, "most_recent": None}
-    deltas = []
-    for r in rows:
+        rows = []
+    if rows:
+        explicit_count = len(rows)
+        deltas = []
+        for r in rows:
+            try:
+                payload = json.loads(r["payload_json"] or "{}")
+                dt = payload.get("response_time_seconds")
+                if isinstance(dt, (int, float)):
+                    deltas.append(dt)
+            except json.JSONDecodeError:
+                pass
+        avg = sum(deltas) / len(deltas) if deltas else None
+        payload = {}
         try:
-            payload = json.loads(r["payload_json"] or "{}")
-            dt = payload.get("response_time_seconds")
-            if isinstance(dt, (int, float)):
-                deltas.append(dt)
+            payload = json.loads(rows[0]["payload_json"] or "{}")
         except json.JSONDecodeError:
             pass
-    avg = sum(deltas) / len(deltas) if deltas else None
-    payload = {}
-    try:
-        payload = json.loads(rows[0]["payload_json"] or "{}")
-    except json.JSONDecodeError:
-        pass
-    return {
-        "count": len(rows),
-        "avg_seconds": avg,
-        "most_recent": {
+        most_recent = {
             "repo": payload.get("repo"),
             "at": rows[0]["ts"],
-        },
+        }
+    bl = _blacklist_policy_stats()
+    return {
+        # Total shown on dashboard: auto opt-outs + committed policy blacklists.
+        "count": explicit_count + bl["count"],
+        "explicit_optout_count": explicit_count,
+        "blacklist_policy_count": bl["count"],
+        "blacklist_by_signal_type": bl["by_signal_type"],
+        "avg_seconds": avg,
+        "most_recent": most_recent,
     }
 
 
@@ -524,17 +547,21 @@ def cmd_stats(args):
             print(f"  {e['title']}")
             print(f"    citations: {e['citations']}  ({srcs})")
 
-    # Opt-outs (v2.1)
+    # Opt-outs + policy blacklists (v2.1)
     oo = _optouts_stats(conn)
     print()
-    print(f"EXPLICIT OPT-OUTS HONORED: {oo['count']}")
-    if oo["count"]:
+    print(
+        f"REPOS STOPPED: {oo['count']} total "
+        f"({oo['explicit_optout_count']} auto opt-out(s) + "
+        f"{oo['blacklist_policy_count']} policy blacklist(s))"
+    )
+    if oo["explicit_optout_count"]:
         if oo["avg_seconds"] is not None:
             mins = oo["avg_seconds"] / 60.0
-            print(f"  avg time-to-honor: {mins:.1f} minutes")
+            print(f"  avg time-to-honor (opt-out): {mins:.1f} minutes")
         if oo["most_recent"] and oo["most_recent"]["repo"]:
             print(
-                f"  most recent: {oo['most_recent']['repo']} "
+                f"  most recent opt-out: {oo['most_recent']['repo']} "
                 f"on {oo['most_recent']['at'][:10]}"
             )
 
