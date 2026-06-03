@@ -8,7 +8,7 @@
 # Severity: HARD = never again | SOFT = pause N days | CONDITIONAL = certain types only
 
 version: 1
-last_updated: 2026-05-28
+last_updated: 2026-06-03
 
 policies:
   # ---- Blacklist (HARD) ------------------------------------------------------
@@ -101,6 +101,19 @@ policies:
     pr_link: https://github.com/godotengine/godot-docs/pull/12008
     cooldown_days: 9999
     notes: closed within ~40 minutes, no comment
+
+  - repo: docker/docs
+    category: blacklist
+    severity: HARD
+    signal_type: explicit-optout
+    date: 2026-06-03
+    maintainer_id: null
+    quote: "no thanks"
+    pr_link: https://github.com/docker/docs/pull/25250
+    cooldown_days: 9999
+    notes: |
+      Round C (2026-06-03). dvdksn opt-out comment; thaJeztah CHANGES_REQUESTED
+      (preemptable is correct — fix was wrong). Author closed; apology posted.
 
   # ---- Blacklist (SOFT) ------------------------------------------------------
 
