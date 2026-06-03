@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-06-03T09:07:25Z",
-  "commit_sha": "52ad128",
+  "generated_at": "2026-06-03T09:08:46Z",
+  "commit_sha": "0db6596",
   "kpi": {
     "total_prs": 97,
     "merged": 35,
@@ -190,15 +190,19 @@
   "top_friendly": [],
   "emerging_patterns": [],
   "opt_outs": {
-    "count": 11,
-    "explicit_optout_count": 0,
-    "blacklist_policy_count": 11,
+    "count": 13,
+    "explicit_optout_count": 1,
+    "blacklist_policy_count": 12,
     "blacklist_by_signal_type": {
       "explicit": 4,
-      "silent": 7
+      "silent": 7,
+      "explicit-optout": 1
     },
-    "avg_seconds": null,
-    "most_recent": null
+    "avg_seconds": 300.0,
+    "most_recent": {
+      "repo": null,
+      "at": "2026-06-03T09:08:09Z"
+    }
   },
   "initiative_start": "2026-05-15"
 }
