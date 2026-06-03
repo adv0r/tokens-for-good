@@ -1,33 +1,33 @@
 {
   "schema": 2,
-  "generated_at": "2026-06-03T08:06:01Z",
-  "commit_sha": "6d1dc27",
+  "generated_at": "2026-06-03T09:07:25Z",
+  "commit_sha": "52ad128",
   "kpi": {
-    "total_prs": 87,
-    "merged": 33,
-    "closed_unmerged": 26,
-    "still_open": 28,
-    "unique_repos": 44,
-    "helpful_signal_rate": 0.559322033898305,
-    "helpful_count": 33,
-    "unhelpful_count": 26
+    "total_prs": 97,
+    "merged": 35,
+    "closed_unmerged": 27,
+    "still_open": 35,
+    "unique_repos": 49,
+    "helpful_signal_rate": 0.5645161290322581,
+    "helpful_count": 35,
+    "unhelpful_count": 27
   },
   "by_model": [
     {
       "model": "(unknown)",
-      "n": 87,
-      "merged": 33,
-      "n_decided": 59,
+      "n": 97,
+      "merged": 35,
+      "n_decided": 62,
       "thanked": 0
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 33,
-      "closed": 26,
-      "open": 18,
-      "draft": 10
+      "merged": 35,
+      "closed": 27,
+      "open": 29,
+      "draft": 6
     }
   ],
   "by_org": [
@@ -51,12 +51,21 @@
     },
     {
       "org": "gohugoio",
-      "n": 6,
+      "n": 7,
       "merged": 3,
       "closed": 3,
-      "open": 0,
+      "open": 1,
       "decided": 6,
       "helpful_rate": 0.5
+    },
+    {
+      "org": "JabRef",
+      "n": 5,
+      "merged": 5,
+      "closed": 0,
+      "open": 0,
+      "decided": 5,
+      "helpful_rate": 1.0
     },
     {
       "org": "the-turing-way",
@@ -66,6 +75,15 @@
       "open": 4,
       "decided": 0,
       "helpful_rate": null
+    },
+    {
+      "org": "ratatui",
+      "n": 4,
+      "merged": 3,
+      "closed": 0,
+      "open": 1,
+      "decided": 3,
+      "helpful_rate": 1.0
     },
     {
       "org": "jupyterlab",
@@ -95,15 +113,6 @@
       "helpful_rate": 0.0
     },
     {
-      "org": "ratatui",
-      "n": 3,
-      "merged": 3,
-      "closed": 0,
-      "open": 0,
-      "decided": 3,
-      "helpful_rate": 1.0
-    },
-    {
       "org": "pymc-devs",
       "n": 3,
       "merged": 0,
@@ -111,20 +120,11 @@
       "open": 2,
       "decided": 1,
       "helpful_rate": 0.0
-    },
-    {
-      "org": "jupyter",
-      "n": 3,
-      "merged": 0,
-      "closed": 3,
-      "open": 0,
-      "decided": 3,
-      "helpful_rate": 0.0
     }
   ],
-  "by_org_other_count": 43,
-  "by_org_other_orgs": 31,
-  "by_org_total_orgs": 41,
+  "by_org_other_count": 49,
+  "by_org_other_orgs": 36,
+  "by_org_total_orgs": 46,
   "pr_timeline": [
     {
       "day": "2026-05-15",
@@ -150,6 +150,11 @@
       "day": "2026-05-28",
       "opened": 11,
       "merged": 5
+    },
+    {
+      "day": "2026-06-03",
+      "opened": 10,
+      "merged": 2
     }
   ],
   "merge_rate_by_week": [
@@ -173,6 +178,13 @@
       "decided": 9,
       "total": 11,
       "merge_rate": 0.5555555555555556
+    },
+    {
+      "week": "2026-W22",
+      "merged": 2,
+      "decided": 3,
+      "total": 10,
+      "merge_rate": 0.6666666666666666
     }
   ],
   "top_friendly": [],
