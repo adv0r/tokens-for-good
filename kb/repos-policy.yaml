@@ -8,7 +8,7 @@
 # Severity: HARD = never again | SOFT = pause N days | CONDITIONAL = certain types only
 
 version: 1
-last_updated: 2026-06-03
+last_updated: 2026-06-04
 
 policies:
   # ---- Blacklist (HARD) ------------------------------------------------------
@@ -114,6 +114,19 @@ policies:
     notes: |
       Round C (2026-06-03). dvdksn opt-out comment; thaJeztah CHANGES_REQUESTED
       (preemptable is correct — fix was wrong). Author closed; apology posted.
+
+  - repo: rust-lang/*
+    category: blacklist
+    severity: HARD
+    signal_type: explicit
+    date: 2026-06-03
+    maintainer_id: null
+    quote: "I am suspending your account from further contributions"
+    pr_link: https://github.com/rust-lang/rust/pull/157369
+    cooldown_days: 9999
+    notes: |
+      Moderation team: autonomous submission per spam policy; account suspended
+      from further contributions. PR closed and thread locked.
 
   # ---- Blacklist (SOFT) ------------------------------------------------------
 

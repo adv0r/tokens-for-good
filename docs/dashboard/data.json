@@ -1,32 +1,32 @@
 {
   "schema": 2,
-  "generated_at": "2026-06-03T09:08:46Z",
-  "commit_sha": "0db6596",
+  "generated_at": "2026-06-03T10:01:19Z",
+  "commit_sha": "5abc69e",
   "kpi": {
     "total_prs": 97,
-    "merged": 35,
-    "closed_unmerged": 27,
-    "still_open": 35,
+    "merged": 36,
+    "closed_unmerged": 29,
+    "still_open": 32,
     "unique_repos": 49,
-    "helpful_signal_rate": 0.5645161290322581,
-    "helpful_count": 35,
-    "unhelpful_count": 27
+    "helpful_signal_rate": 0.5538461538461539,
+    "helpful_count": 36,
+    "unhelpful_count": 29
   },
   "by_model": [
     {
       "model": "(unknown)",
       "n": 97,
-      "merged": 35,
-      "n_decided": 62,
+      "merged": 36,
+      "n_decided": 65,
       "thanked": 0
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 35,
-      "closed": 27,
-      "open": 29,
+      "merged": 36,
+      "closed": 29,
+      "open": 26,
       "draft": 6
     }
   ],
@@ -144,7 +144,7 @@
     {
       "day": "2026-05-21",
       "opened": 20,
-      "merged": 7
+      "merged": 8
     },
     {
       "day": "2026-05-28",
@@ -167,10 +167,10 @@
     },
     {
       "week": "2026-W20",
-      "merged": 28,
-      "decided": 50,
+      "merged": 29,
+      "decided": 51,
       "total": 75,
-      "merge_rate": 0.56
+      "merge_rate": 0.5686274509803921
     },
     {
       "week": "2026-W21",
@@ -182,19 +182,19 @@
     {
       "week": "2026-W22",
       "merged": 2,
-      "decided": 3,
+      "decided": 5,
       "total": 10,
-      "merge_rate": 0.6666666666666666
+      "merge_rate": 0.4
     }
   ],
   "top_friendly": [],
   "emerging_patterns": [],
   "opt_outs": {
-    "count": 13,
+    "count": 14,
     "explicit_optout_count": 1,
-    "blacklist_policy_count": 12,
+    "blacklist_policy_count": 13,
     "blacklist_by_signal_type": {
-      "explicit": 4,
+      "explicit": 5,
       "silent": 7,
       "explicit-optout": 1
     },
