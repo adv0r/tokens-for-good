@@ -1,33 +1,33 @@
 {
   "schema": 2,
-  "generated_at": "2026-05-28T20:30:00Z",
-  "commit_sha": "d4fdd15",
+  "generated_at": "2026-06-03T08:06:01Z",
+  "commit_sha": "6d1dc27",
   "kpi": {
-    "total_prs": 80,
-    "merged": 21,
-    "closed_unmerged": 23,
-    "still_open": 36,
-    "unique_repos": 43,
-    "helpful_signal_rate": 0.4772727272727273,
-    "helpful_count": 21,
-    "unhelpful_count": 23
+    "total_prs": 87,
+    "merged": 33,
+    "closed_unmerged": 26,
+    "still_open": 28,
+    "unique_repos": 44,
+    "helpful_signal_rate": 0.559322033898305,
+    "helpful_count": 33,
+    "unhelpful_count": 26
   },
   "by_model": [
     {
       "model": "(unknown)",
-      "n": 80,
-      "merged": 21,
-      "n_decided": 44,
+      "n": 87,
+      "merged": 33,
+      "n_decided": 59,
       "thanked": 0
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 21,
-      "closed": 23,
-      "open": 25,
-      "draft": 11
+      "merged": 33,
+      "closed": 26,
+      "open": 18,
+      "draft": 10
     }
   ],
   "by_org": [
@@ -41,13 +41,22 @@
       "helpful_rate": 1.0
     },
     {
+      "org": "swarm-ai-research",
+      "n": 7,
+      "merged": 7,
+      "closed": 0,
+      "open": 0,
+      "decided": 7,
+      "helpful_rate": 1.0
+    },
+    {
       "org": "gohugoio",
       "n": 6,
       "merged": 3,
-      "closed": 2,
-      "open": 1,
-      "decided": 5,
-      "helpful_rate": 0.6
+      "closed": 3,
+      "open": 0,
+      "decided": 6,
+      "helpful_rate": 0.5
     },
     {
       "org": "the-turing-way",
@@ -88,10 +97,10 @@
     {
       "org": "ratatui",
       "n": 3,
-      "merged": 1,
+      "merged": 3,
       "closed": 0,
-      "open": 2,
-      "decided": 1,
+      "open": 0,
+      "decided": 3,
       "helpful_rate": 1.0
     },
     {
@@ -111,20 +120,11 @@
       "open": 0,
       "decided": 3,
       "helpful_rate": 0.0
-    },
-    {
-      "org": "decidim",
-      "n": 3,
-      "merged": 0,
-      "closed": 2,
-      "open": 1,
-      "decided": 2,
-      "helpful_rate": 0.0
     }
   ],
-  "by_org_other_count": 40,
-  "by_org_other_orgs": 30,
-  "by_org_total_orgs": 40,
+  "by_org_other_count": 43,
+  "by_org_other_orgs": 31,
+  "by_org_total_orgs": 41,
   "pr_timeline": [
     {
       "day": "2026-05-15",
@@ -138,18 +138,18 @@
     },
     {
       "day": "2026-05-20",
-      "opened": 45,
-      "merged": 14
+      "opened": 52,
+      "merged": 21
     },
     {
       "day": "2026-05-21",
       "opened": 20,
-      "merged": 5
+      "merged": 7
     },
     {
       "day": "2026-05-28",
       "opened": 11,
-      "merged": 2
+      "merged": 5
     }
   ],
   "merge_rate_by_week": [
@@ -162,17 +162,17 @@
     },
     {
       "week": "2026-W20",
-      "merged": 19,
-      "decided": 40,
-      "total": 68,
-      "merge_rate": 0.475
+      "merged": 28,
+      "decided": 50,
+      "total": 75,
+      "merge_rate": 0.56
     },
     {
       "week": "2026-W21",
-      "merged": 2,
-      "decided": 4,
+      "merged": 5,
+      "decided": 9,
       "total": 11,
-      "merge_rate": 0.5
+      "merge_rate": 0.5555555555555556
     }
   ],
   "top_friendly": [],
