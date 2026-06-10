@@ -1,33 +1,61 @@
 {
   "schema": 2,
-  "generated_at": "2026-06-03T10:01:19Z",
-  "commit_sha": "5abc69e",
+  "generated_at": "2026-06-10T07:38:16Z",
+  "commit_sha": "031b259",
   "kpi": {
-    "total_prs": 97,
-    "merged": 36,
-    "closed_unmerged": 29,
-    "still_open": 32,
-    "unique_repos": 49,
-    "helpful_signal_rate": 0.5538461538461539,
-    "helpful_count": 36,
-    "unhelpful_count": 29
+    "total_prs": 102,
+    "merged": 42,
+    "closed_unmerged": 34,
+    "still_open": 26,
+    "unique_repos": 51,
+    "helpful_signal_rate": 0.5526315789473685,
+    "helpful_count": 42,
+    "unhelpful_count": 34
   },
   "by_model": [
     {
       "model": "(unknown)",
-      "n": 97,
-      "merged": 36,
-      "n_decided": 65,
+      "n": 100,
+      "merged": 42,
+      "n_decided": 76,
+      "thanked": 0
+    },
+    {
+      "model": "Fable 5",
+      "n": 1,
+      "merged": 0,
+      "n_decided": 0,
+      "thanked": 0
+    },
+    {
+      "model": "Claude Fable 5",
+      "n": 1,
+      "merged": 0,
+      "n_decided": 0,
       "thanked": 0
     }
   ],
   "by_type": [
     {
       "contribution_type": "unknown",
-      "merged": 36,
-      "closed": 29,
-      "open": 26,
+      "merged": 42,
+      "closed": 34,
+      "open": 18,
       "draft": 6
+    },
+    {
+      "contribution_type": "bug-fix",
+      "merged": 0,
+      "closed": 0,
+      "open": 1,
+      "draft": 0
+    },
+    {
+      "contribution_type": "code-fix",
+      "merged": 0,
+      "closed": 0,
+      "open": 1,
+      "draft": 0
     }
   ],
   "by_org": [
@@ -53,10 +81,10 @@
       "org": "gohugoio",
       "n": 7,
       "merged": 3,
-      "closed": 3,
-      "open": 1,
-      "decided": 6,
-      "helpful_rate": 0.5
+      "closed": 4,
+      "open": 0,
+      "decided": 7,
+      "helpful_rate": 0.42857142857142855
     },
     {
       "org": "JabRef",
@@ -79,10 +107,10 @@
     {
       "org": "ratatui",
       "n": 4,
-      "merged": 3,
+      "merged": 4,
       "closed": 0,
-      "open": 1,
-      "decided": 3,
+      "open": 0,
+      "decided": 4,
       "helpful_rate": 1.0
     },
     {
@@ -122,9 +150,9 @@
       "helpful_rate": 0.0
     }
   ],
-  "by_org_other_count": 49,
-  "by_org_other_orgs": 36,
-  "by_org_total_orgs": 46,
+  "by_org_other_count": 54,
+  "by_org_other_orgs": 38,
+  "by_org_total_orgs": 48,
   "pr_timeline": [
     {
       "day": "2026-05-15",
@@ -144,7 +172,7 @@
     {
       "day": "2026-05-21",
       "opened": 20,
-      "merged": 8
+      "merged": 9
     },
     {
       "day": "2026-05-28",
@@ -154,23 +182,38 @@
     {
       "day": "2026-06-03",
       "opened": 10,
+      "merged": 4
+    },
+    {
+      "day": "2026-06-08",
+      "opened": 1,
+      "merged": 1
+    },
+    {
+      "day": "2026-06-09",
+      "opened": 3,
       "merged": 2
+    },
+    {
+      "day": "2026-06-10",
+      "opened": 1,
+      "merged": 0
     }
   ],
   "merge_rate_by_week": [
     {
       "week": "2026-W19",
       "merged": 0,
-      "decided": 0,
+      "decided": 1,
       "total": 1,
-      "merge_rate": null
+      "merge_rate": 0.0
     },
     {
       "week": "2026-W20",
-      "merged": 29,
-      "decided": 51,
+      "merged": 30,
+      "decided": 54,
       "total": 75,
-      "merge_rate": 0.5686274509803921
+      "merge_rate": 0.5555555555555556
     },
     {
       "week": "2026-W21",
@@ -181,10 +224,17 @@
     },
     {
       "week": "2026-W22",
-      "merged": 2,
-      "decided": 5,
+      "merged": 4,
+      "decided": 9,
       "total": 10,
-      "merge_rate": 0.4
+      "merge_rate": 0.4444444444444444
+    },
+    {
+      "week": "2026-W23",
+      "merged": 3,
+      "decided": 3,
+      "total": 5,
+      "merge_rate": 1.0
     }
   ],
   "top_friendly": [],
